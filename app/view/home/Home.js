@@ -26,27 +26,18 @@ Ext.define('peq.view.home.Home', {
                 width: '100%'
             },
             items: [{
-                text: 'About',
+                text: 'Settings',
                 style: {
                     height: '30px'
                 },
-                pressed: true
-            }, {
-                text: 'Editor Accounts',
-                style: {
-                    height: '30px'
-                }
-            }, {
-                text: 'Reset Password',
-                style: {
-                    height: '30px'
-                }
-            }, {
-                text: 'Active DB Connection',
-                style: {
-                    height: '30px'
-                },
-                handler: 'onDBSetup'
+                menu: [{
+                    text: 'Manage Editor Accounts'
+                }, {
+                    text: 'Reset Password'
+                }, {
+                    text: 'DB Connections',
+                    handler: 'onDBSetup'
+                }]
             }]
         }]
     }, {
