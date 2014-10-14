@@ -1,0 +1,23 @@
+.x-tab-focus {
+	box-shadow: 0 1px 0 0 #c1c1c1 inset, 0 -1px 0 0 #c1c1c1 inset, -1px 0 0 0 #c1c1c1 inset!important;
+}
+
+.x-datepicker-month .x-btn-split-right:after {
+	background-image: none;
+}
+
+.x-btn-wrap-default-small.x-btn-split-right:after {
+	width: 0px;
+}
+
+.x-datepicker-month .x-btn {
+	cursor: default;
+}
+
+.x-grid-item-focused .x-grid-cell-inner:before {
+	border: 0px!important;
+}
+
+.x-grid-row, .x-grid-row .x-grid-cell-selected, .x-grid-item-selected, .x-grid-row .x-grid-item-selected {
+	background-color: transparent!important;
+}
