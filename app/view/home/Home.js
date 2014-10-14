@@ -20,24 +20,19 @@ Ext.define('peq.view.home.Home', {
             backgroundColor: '#240B3B'
         },
         items: [{
-            xtype: 'segmentedbutton',
-            vertical: true,
+            xtype: 'button',
+            text: 'Settings',
             style: {
+                height: '30px',
                 width: '100%'
             },
-            items: [{
-                text: 'Settings',
-                style: {
-                    height: '30px'
-                },
-                menu: [{
-                    text: 'Manage Editor Accounts'
-                }, {
-                    text: 'Reset Password'
-                }, {
-                    text: 'DB Connections',
-                    handler: 'onDBSetup'
-                }]
+            menu: [{
+                text: 'Manage Editor Accounts'
+            }, {
+                text: 'Reset Password'
+            }, {
+                text: 'DB Connections',
+                handler: 'onDBSetup'
             }]
         }]
     }, {

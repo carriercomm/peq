@@ -31,11 +31,16 @@ Ext.define('peq.view.items.Items', {
                     height: '30px'
                 },
                 pressed: true
-            }, {
-                text: 'Create New Item',
-                style: {
-                    height: '30px'
-                }
+            }]
+        }, {
+            xtype: 'button',
+            text: 'Actions',
+            style: {
+                height: '30px',
+                width: '100%'
+            },
+            menu: [{
+                text: 'Create New Item'
             }]
         }]
     }, {

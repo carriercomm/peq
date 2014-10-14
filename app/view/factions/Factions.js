@@ -36,11 +36,16 @@ Ext.define('peq.view.factions.Factions', {
                 style: {
                     height: '30px'
                 }
-            }, {
-                text: 'Create New Faction',
-                style: {
-                    height: '30px'
-                }
+            }]
+        }, {
+            xtype: 'button',
+            text: 'Actions',
+            style: {
+                height: '30px',
+                width: '100%'
+            },
+            menu: [{
+                text: 'Create New Faction'
             }]
         }]
     }, {

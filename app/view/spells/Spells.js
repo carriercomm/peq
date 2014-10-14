@@ -36,11 +36,16 @@ Ext.define('peq.view.spells.Spells', {
                 style: {
                     height: '30px'
                 }
-            }, {
-                text: 'Generate spells_us.txt',
-                style: {
-                    height: '30px'
-                }
+            }]
+        }, {
+            xtype: 'button',
+            text: 'Actions',
+            style: {
+                height: '30px',
+                width: '100%'
+            },
+            menu: [{
+                text: 'Generate spells_us.txt'
             }]
         }]
     }, {
