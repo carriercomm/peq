@@ -17,7 +17,3 @@
 .x-grid-item-focused .x-grid-cell-inner:before {
 	border: 0px!important;
 }
-
-.x-grid-row, .x-grid-row .x-grid-cell-selected, .x-grid-item-selected, .x-grid-row .x-grid-item-selected {
-	background-color: transparent!important;
-}

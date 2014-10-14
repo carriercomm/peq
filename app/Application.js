@@ -23,6 +23,7 @@ Ext.define('peq.Application', {
     
     launch: function () {
         Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+        peq.app.tokens = Ext.state.Manager.get('tokens');
         peq.app.token = Ext.state.Manager.get('token');
         peq.app.authenticated = Ext.state.Manager.get('authenticated');
         peq.app.admin = Ext.state.Manager.get('admin');

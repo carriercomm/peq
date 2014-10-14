@@ -45,7 +45,8 @@ Ext.define('peq.view.home.Home', {
                 text: 'Active DB Connection',
                 style: {
                     height: '30px'
-                }
+                },
+                handler: 'onDBSetup'
             }]
         }]
     }, {

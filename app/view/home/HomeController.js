@@ -6,5 +6,9 @@ Ext.define('peq.view.home.HomeController', {
         Util.attachResizeHandler(e, function() {
             e.setHeight(Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - 5);
         });
+    },
+
+    onDBSetup: function(e) {
+    	peq.app.getController('peq.controller.Root').initDBList(peq.app.getController('peq.controller.Root'));
     }
 });

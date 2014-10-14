@@ -27,7 +27,7 @@ Ext.define('peq.view.setup.LoginController', {
         var form = this.lookupReference('form');
         
         if (form.isValid()) {
-            Ext.getBody().mask(this.loginText);
+            Ext.getCmp('loginWindow-ID').mask(this.loginText);
 
             if (!this.setupManager) {
                 this.setupManager = new peq.SetupManager({
@@ -46,16 +46,17 @@ Ext.define('peq.view.setup.LoginController', {
     },
     
     onLoginFailure: function(response) {
-        Ext.getBody().unmask();
-        Ext.getCmp("loginErrorMsg").update(response.error);
+        if (response) {
+            Ext.getCmp("loginErrorMsg").update(response.error);
+        } else {
+            Ext.state.Manager.set('token', null);
+            Ext.getCmp("loginErrorMsg").update('There was a problem communicating with the EQEMU database, please verify the supplied credentials. Token has been reset for next attempt. Please reload the page.');
+        }
+        Ext.getCmp("loginWindow-ID").unmask();
         Ext.getCmp("loginErrorMsg").show();
     },
 
     onLoginSuccess: function(response) {
-        setTimeout(function() {
-            Ext.getBody().unmask();
-        }, 2500);
-
         // Defined in Root.js controller
         this.fireViewEvent('login', this.getView(), this.setupManager);
     }

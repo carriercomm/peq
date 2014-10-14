@@ -13,12 +13,6 @@ Ext.define('peq.view.setup.DBSetupController', {
         Ext.getBody().unmask();
     },
 
-    onBeforeRender: function() {
-        //var text = "PEQ Database Editor requires database information before it can connect to your EQEMU database. " + 
-        //    "The database information is stored in the db_tokens table. The information will only be transmitted once, then you will be given a token. ";
-        //Ext.getBody().createChild('<div id="info-panel" style="text-align: center; margin: 10px; padding: 15px; border-radius: 10px; background-color: #ccc;">' + text + '</div>');
-    },
-
     onSpecialKey: function(field, e) {
         if (e.getKey() === e.ENTER) {
             this.doSetup();

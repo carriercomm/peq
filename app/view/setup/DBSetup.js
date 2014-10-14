@@ -22,8 +22,7 @@ Ext.define('peq.view.setup.DBSetup', {
     height: 250,
     
     listeners: {
-        afterrender: 'onAfterRender',
-        beforerender: 'onBeforeRender'
+        afterrender: 'onAfterRender'
     },
 
     items: [{
