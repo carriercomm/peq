@@ -4,7 +4,7 @@ Ext.define('peq.view.items.Items', {
 
     controller: 'items',
 
-    layout: 'anchor',
+    layout: 'hbox',
 
     listeners: {
         afterrender: 'onAfterRender'
@@ -48,6 +48,13 @@ Ext.define('peq.view.items.Items', {
         itemId: 'Items-PanelContainer',
         width: '100%',
         region: 'center',
-        items: []
+        layout: 'fit',
+        height: 5,
+        listeners: {
+            afterrender: 'onAfterRender'
+        },
+        items: [{
+            xtype: 'items-grid'
+        }]
     }]
 });
