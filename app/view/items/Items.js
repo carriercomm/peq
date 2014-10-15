@@ -51,7 +51,7 @@ Ext.define('peq.view.items.Items', {
         layout: 'fit',
         height: 5,
         listeners: {
-            afterrender: 'onAfterRender'
+            afterrender: 'onAfterRenderContentPanel'
         },
         items: [{
             xtype: 'items-grid'

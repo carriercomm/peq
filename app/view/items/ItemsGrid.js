@@ -23,43 +23,7 @@ Ext.define('peq.view.items.ItemsGrid', {
         defaults: {
             hidden: true
         },
-        items: [{
-            text: 'ID', dataIndex: 'id', flex: 1, hidden: false
-        }, {
-            text: 'Name', dataIndex: 'Name', flex: 1, hidden: false
-        }/*, {
-            renderer: function(value) {
-                var id = Ext.id();
-                setTimeout(function() {
-                    var button = Ext.create('Ext.button.Button', {
-                        glyph: 0xf1f8,
-                        text: "Remove",
-                        handler: function (grid, rowIndex, colIndex) {
-                            setTimeout(function() {
-                                var row = Ext.getCmp("dbListGrid-ID").getSelectionModel().getSelection().shift().getData();
-                                var tokens = Ext.state.Manager.get('tokens');
-
-                                Ext.MessageBox.confirm("Delete Database Connection", 'Are you sure you wish to remove this database connection?', function(selection) {
-                                    if (selection == 'yes') {
-                                        Ext.Array.remove(tokens, row.token);
-                                        Ext.state.Manager.set('tokens', tokens);
-                                        Ext.data.StoreManager.lookup('dbListStore').load({params: {tokens: Ext.state.Manager.get('tokens').join(",")}});
-                                    }
-                                });
-                            }, 200);
-                        }
-                    });
-                    if (Ext.get(id)) {
-                        button.render(Ext.get(id));
-                    }
-                }, 1);
-                return '<div id="' + id + '"></div>';
-            },
-            flex: 1,
-            align: 'center',
-            hidden: false,
-            sortable: false
-        }*/]
+        items: []
     },
     dockedItems: [{
         xtype: 'pagingtoolbar',
@@ -86,7 +50,7 @@ Ext.define('peq.view.items.ItemsGrid', {
                         },
                         specialKey: function(field, e) {
                             if (e.getKey() === e.ENTER) {
-                                //extDM.app.getController('extDM.view.user.UserBrowseGridController').onSearchUsers();
+                                //app.getController('extDM.view.user.UserBrowseGridController').onSearchUsers();
                             }
                         }
                     }
@@ -102,7 +66,7 @@ Ext.define('peq.view.items.ItemsGrid', {
                             });
                         },
                         click: function(e) {
-                            //extDM.app.getController('extDM.view.user.UserBrowseGridController').onSearchUsers();
+                            //app.getController('extDM.view.user.UserBrowseGridController').onSearchUsers();
                         }
                     }
                 }));

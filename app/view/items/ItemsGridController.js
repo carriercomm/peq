@@ -14,5 +14,13 @@ Ext.define('peq.view.items.ItemsGridController', {
         if (typeof page != "undefined") {
             Ext.data.StoreManager.lookup('itemsStore').getProxy().setExtraParam('page', page.currentPage);
         }
+    },
+
+    rendererBoolean: function (value) {
+        if (parseInt(value)) {
+            return "Yes";
+        } else {
+            return "No";
+        }
     }
 });
