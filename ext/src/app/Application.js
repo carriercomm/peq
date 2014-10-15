@@ -502,7 +502,7 @@ Ext.define('Ext.app.Application', {
             all = controllers.items;
             for (i = 0, len = all.length; i < len; ++i) {
                 c = all[i];
-                className = c.getModuleClassName();
+                className = c.moduleClassName;
                 if (className && className === name) {
                     controller = c;
                     break;
@@ -520,7 +520,7 @@ Ext.define('Ext.app.Application', {
 
             controllers.add(controller);
 
-            if (me._initialized) {
+            if (me._initialized && typeof controller.doInit != "undefined") {
                 controller.doInit(me);
             }
         }
