@@ -42,15 +42,15 @@ Ext.define('peq.view.items.ItemsGrid', {
                     width: 250,
                     fieldLabel: 'Search',
                     labelWidth: 50,
-                    itemId: 'userBrowseGrid-search',
+                    itemId: 'itemsGrid-search',
                     enableKeyEvents: true,
                     listeners: {
                         render: function(e) {
-                            e.inputEl.set({title: "Searches the Login and Name fields"})
+                            e.inputEl.set({title: "Searches the Name field"})
                         },
                         specialKey: function(field, e) {
                             if (e.getKey() === e.ENTER) {
-                                //app.getController('extDM.view.user.UserBrowseGridController').onSearchUsers();
+                                peq.app.getController('peq.view.items.ItemsGridController').onSearchItems();
                             }
                         }
                     }
@@ -66,7 +66,7 @@ Ext.define('peq.view.items.ItemsGrid', {
                             });
                         },
                         click: function(e) {
-                            //app.getController('extDM.view.user.UserBrowseGridController').onSearchUsers();
+                            peq.app.getController('peq.view.items.ItemsGridController').onSearchItems();
                         }
                     }
                 }));

@@ -22,5 +22,10 @@ Ext.define('peq.view.items.ItemsGridController', {
         } else {
             return "No";
         }
+    },
+
+    onSearchItems: function (e) {
+        var search = Ext.ComponentQuery.query("#itemsGrid-search")[0].inputEl.getValue();
+        Ext.data.StoreManager.lookup('itemsStore').load({params: {token: Ext.state.Manager.get('token'), page: 1, query: search}});
     }
 });
