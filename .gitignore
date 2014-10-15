@@ -8,4 +8,4 @@ build/
 bootstrap.*
 
 .fuse_hidden*
-.*.tmp
+*.tmp
