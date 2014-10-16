@@ -46,7 +46,7 @@ Ext.define('peq.view.items.ItemsGrid', {
                     enableKeyEvents: true,
                     listeners: {
                         render: function(e) {
-                            e.inputEl.set({title: "Searches the Name field"})
+                            e.inputEl.set({title: "Searches the ID or Name field"})
                         },
                         specialKey: function(field, e) {
                             if (e.getKey() === e.ENTER) {

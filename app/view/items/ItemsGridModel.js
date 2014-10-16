@@ -43,30 +43,32 @@ Ext.define('peq.view.items.ItemsGridModel', {
                     var ignore, defaultCols, newCols, action, records;
                     
                     // columns to ignore when populating remaining columns (default columns)
-                    ignore = ['id', 'Name', 'typeName', 'magic', 'nodrop', 'norent', 'artifactFlag', 'ac', 'damage', 'delay', 'range'];
+                    ignore = ['iconUrl', 'id', 'Name', 'typeName', 'magic', 'nodrop', 'norent', 'artifactFlag', 'ac', 'damage', 'delay', 'range'];
                     
                     defaultCols = [{
-                        text: 'ID', dataIndex: 'id', flex: 1, hidden: false
+                        text: 'Icon', dataIndex: 'iconUrl', width: 65, hidden: false, renderer: 'renderIcon'
                     }, {
-                        text: 'Name', dataIndex: 'Name', flex: 2, hidden: false
+                        text: 'ID', dataIndex: 'id', flex: 1, align: 'center', hidden: false, renderer: 'renderLucyLink'
                     }, {
-                        text: 'Type', dataIndex: 'typeName', flex: 2, hidden: false
+                        text: 'Name', dataIndex: 'Name', flex: 3, hidden: false, renderer: 'renderBold'
                     }, {
-                        text: 'Magic', dataIndex: 'magic', flex: 1, hidden: false, renderer: 'rendererBoolean'
+                        text: 'Type', dataIndex: 'typeName', flex: 1, align: 'center', hidden: false
                     }, {
-                        text: 'No-Drop', dataIndex: 'nodrop', flex: 1, hidden: false, renderer: 'rendererBoolean'
+                        text: 'Magic', dataIndex: 'magic', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean'
                     }, {
-                        text: 'No-Rent', dataIndex: 'norent', flex: 1, hidden: false, renderer: 'rendererBoolean'
+                        text: 'No-Drop', dataIndex: 'nodrop', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean'
                     }, {
-                        text: 'Artifact', dataIndex: 'artifactflag', flex: 1, hidden: false, renderer: 'rendererBoolean'
+                        text: 'No-Rent', dataIndex: 'norent', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean'
                     }, {
-                        text: 'Armor', dataIndex: 'ac', flex: 1, hidden: false
+                        text: 'Artifact', dataIndex: 'artifactflag', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean'
                     }, {
-                        text: 'Damage', dataIndex: 'damage', flex: 1, hidden: false
+                        text: 'Armor', dataIndex: 'ac', flex: 1, align: 'center', hidden: false
                     }, {
-                        text: 'Delay', dataIndex: 'delay', flex: 1, hidden: false
+                        text: 'Damage', dataIndex: 'damage', flex: 1, align: 'center', hidden: false
                     }, {
-                        text: 'Range', dataIndex: 'range', flex: 1, hidden: false
+                        text: 'Delay', dataIndex: 'delay', flex: 1, align: 'center', hidden: false
+                    }, {
+                        text: 'Range', dataIndex: 'range', flex: 1, align: 'center', hidden: false
                     }];
 
                     newCols = defaultCols;

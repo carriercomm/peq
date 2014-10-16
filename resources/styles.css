@@ -17,3 +17,7 @@
 .x-grid-item-focused .x-grid-cell-inner:before {
 	border: 0px!important;
 }
+
+a:link, a:active {
+	color: #240B3B;
+}

@@ -16,12 +16,24 @@ Ext.define('peq.view.items.ItemsGridController', {
         }
     },
 
-    rendererBoolean: function (value) {
+    renderBold: function (value) {
+        return "<strong>" + value + "</strong>";
+    },
+
+    renderBoolean: function (value) {
         if (parseInt(value)) {
             return "Yes";
         } else {
             return "No";
         }
+    },
+
+    renderIcon: function (value) {
+        return '<img src="' + value + '" width="40" height="40" />';
+    },
+
+    renderLucyLink: function (value) {
+        return value + ' (<a href="http://lucy.allakhazam.com/item.html?id=' + value + '" target="_blank">Lucy</a>)';
     },
 
     onSearchItems: function (e) {

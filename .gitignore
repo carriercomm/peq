@@ -9,3 +9,4 @@ bootstrap.*
 
 .fuse_hidden*
 *.tmp
+*.TMP
