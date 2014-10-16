@@ -6,7 +6,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
         items: {
             storeId: 'itemsStore',
             autoLoad: false,
-            remoteSort: false,
+            remoteSort: true,
             pageSize: 50,
             proxy: {
                 type: 'jsonp',
@@ -20,7 +20,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                 extraParams: { limit: 50 }
             },
             fields: [],
-            sorters: "field",
+            sorters: "Name",
             listeners: {
                 beforeload: function(store, operation, opts) {
                     Ext.getCmp("itemsGrid-ID").mask("Loading Data...");
@@ -50,7 +50,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                     }, {
                         text: 'Name', dataIndex: 'Name', flex: 3, hidden: false, renderer: 'renderBold'
                     }, {
-                        text: 'Type', dataIndex: 'typeName', flex: 1, align: 'center', hidden: false
+                        text: 'Type', dataIndex: 'typeName', flex: 1, align: 'center', hidden: false, sortable: false
                     }];
 
                     // if container found in results show bag related columns by default
@@ -63,7 +63,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                             text: 'Container', dataIndex: 'container', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean'
                         });
                         defaultCols.push({
-                            text: 'Bag Type', dataIndex: 'bagTypeName', flex: 1, align: 'center', hidden: false
+                            text: 'Bag Type', dataIndex: 'bagTypeName', flex: 1, align: 'center', hidden: false, sortable: false
                         });
                         defaultCols.push({
                             text: 'Bag Size', dataIndex: 'bagsize', flex: 1, align: 'center', hidden: false, renderer: 'renderBagSize'
@@ -76,7 +76,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                         });
                     } else {
                         defaultCols.push({
-                            text: 'Container', dataIndex: 'container', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean'
+                            text: 'Container', dataIndex: 'container', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean', sortable: false
                         });
                     }
 
