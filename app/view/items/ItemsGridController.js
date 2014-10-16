@@ -28,12 +28,33 @@ Ext.define('peq.view.items.ItemsGridController', {
         }
     },
 
+    renderPercent: function (value) {
+        return value + "%";
+    },
+
     renderIcon: function (value) {
         return '<img src="' + value + '" width="40" height="40" />';
     },
 
     renderLucyLink: function (value) {
         return value + ' (<a href="http://lucy.allakhazam.com/item.html?id=' + value + '" target="_blank">Lucy</a>)';
+    },
+
+    renderBagSize: function (value) {
+        switch (value) {
+            case "0":
+                return "Non-Bag";
+            case "1":
+                return "Small";
+            case "2":
+                return "Medium";
+            case "3":
+                return "Large";
+            case "4":
+                return "Giant";
+            case "5":
+                return "Giant - Assembly Kit";
+        }
     },
 
     onSearchItems: function (e) {
