@@ -7,7 +7,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
             storeId: 'itemsStore',
             autoLoad: false,
             remoteSort: false,
-            pageSize: 100,
+            pageSize: 50,
             proxy: {
                 type: 'jsonp',
                 url: '',
@@ -17,27 +17,15 @@ Ext.define('peq.view.items.ItemsGridModel', {
                     totalProperty: 'totalCount'
                 },
                 pageParam: 'page',
-                extraParams: { limit: 100 }
+                extraParams: { limit: 50 }
             },
-            fields: [
-                { name: 'id', type: 'string' },
-                { name: 'Name', type: 'string' },
-                { name: 'typeName', type: 'string' },
-                { name: 'magic', type: 'string' },
-                { name: 'nodrop', type: 'string' },
-                { name: 'norent', type: 'string' },
-                { name: 'artifactflag', type: 'string' },
-                { name: 'ac', type: 'string' },
-                { name: 'damage', type: 'string' },
-                { name: 'delay', type: 'string' },
-                { name: 'range', type: 'string' }
-            ],
+            fields: [],
             sorters: "field",
             listeners: {
                 beforeload: function(store, operation, opts) {
                     Ext.getCmp("itemsGrid-ID").mask("Loading Data...");
                     store.getProxy().setUrl(AppConfig.getApiEndpoint() + "/item/search");
-                    store.getProxy().setExtraParam('page', store.lastOptions.page);
+                    store.getProxy().setExtraParam('token', Ext.state.Manager.get('token'));
                 },
                 load: function() {
                     var ignore, defaultCols, newCols, action, records, container, container_found;
@@ -65,7 +53,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                         text: 'Type', dataIndex: 'typeName', flex: 1, align: 'center', hidden: false
                     }];
 
-                    // if container found in results show bagslots and bagsize columns by default
+                    // if container found in results show bag related columns by default
                     if (container_found) {
                         ignore.push('bagsize');
                         ignore.push('bagslots');

@@ -6,14 +6,8 @@ Ext.define('peq.view.items.ItemsGridController', {
         Util.attachResizeHandler(e, function() {
             e.setHeight(Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - 36);
         });
-        Ext.data.StoreManager.lookup('itemsStore').load({params: {token: Ext.state.Manager.get('token'), page: 1}});
         this.lookupReference('pagingtoolbartop').setStore(this.getStore('items'));
-    },
-
-    onPagingToolbarChange: function (thiso, page, eOpts) {
-        if (typeof page != "undefined") {
-            Ext.data.StoreManager.lookup('itemsStore').getProxy().setExtraParam('page', page.currentPage);
-        }
+        Ext.data.StoreManager.lookup('itemsStore').load({params: {token: Ext.state.Manager.get('token'), page: 1}});
     },
 
     renderBold: function (value) {
@@ -59,6 +53,7 @@ Ext.define('peq.view.items.ItemsGridController', {
 
     onSearchItems: function (e) {
         var search = Ext.ComponentQuery.query("#itemsGrid-search")[0].inputEl.getValue();
-        Ext.data.StoreManager.lookup('itemsStore').load({params: {token: Ext.state.Manager.get('token'), page: 1, query: search}});
+        Ext.data.StoreManager.lookup('itemsStore').getProxy().setExtraParam('query', search);
+        Ext.data.StoreManager.lookup('itemsStore').load();
     }
 });

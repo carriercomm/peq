@@ -33,7 +33,6 @@ Ext.define('peq.view.items.ItemsGrid', {
             store: '{items}'
         },
         listeners: {
-            change: 'onPagingToolbarChange',
             render: function (e) {
                 var items = e.items;
                 items.insert(0, Ext.create('Ext.toolbar.Fill'));
