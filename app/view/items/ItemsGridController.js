@@ -54,6 +54,6 @@ Ext.define('peq.view.items.ItemsGridController', {
     onSearchItems: function (e) {
         var search = Ext.ComponentQuery.query("#itemsGrid-search")[0].inputEl.getValue();
         Ext.data.StoreManager.lookup('itemsStore').getProxy().setExtraParam('query', search);
-        Ext.data.StoreManager.lookup('itemsStore').load();
+        Ext.data.StoreManager.lookup('itemsStore').load({params: {page: 1}});
     }
 });
