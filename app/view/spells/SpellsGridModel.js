@@ -31,7 +31,7 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                     var ignore, defaultCols, newCols, action, records;
                     
                     // columns to ignore when populating remaining columns (default columns)
-                    //ignore = ['id', 'long_name', 'short_name', 'min_level', 'min_status', 'ztype', 'safe_x', 'safe_y', 'safe_z', 'walkspeed', 'zone_exp_multiplier', 'castoutdoor', 'cancombat', 'canbind', 'canlevitate', 'suspendbuffs'];
+                    ignore = ['new_icon', 'id', 'name', 'goodEffect', 'mana', 'range', 'cast_time', 'recovery_time', 'recast_time'];
 
                     defaultCols = [{
                         text: 'Icon', dataIndex: 'new_icon', width: 50, hidden: false, renderer: 'renderIcon', sortable: false
@@ -55,7 +55,7 @@ Ext.define('peq.view.spells.SpellsGridModel', {
 
                     newCols = defaultCols;
 
-                    /*action = {
+                    action = {
                         text: "Action",
                         renderer: function(value) {
                             var id = Ext.id();
@@ -79,23 +79,7 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                                             }, 200);
                                         }
                                     }, {
-                                        text: "Zone Connections",
-                                        handler: function (grid, rowIndex, colIndex) {
-                                            setTimeout(function() {
-                                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
-                                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
-                                            }, 200);
-                                        }
-                                    }, {
-                                        text: "Graveyards",
-                                        handler: function (grid, rowIndex, colIndex) {
-                                            setTimeout(function() {
-                                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
-                                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
-                                            }, 200);
-                                        }
-                                    }, {
-                                        text: "Blocked Spells",
+                                        text: "Delete",
                                         handler: function (grid, rowIndex, colIndex) {
                                             setTimeout(function() {
                                                 var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
@@ -114,11 +98,11 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                         align: 'center',
                         hidden: false,
                         sortable: false
-                    };*/
+                    };
 
                     // loop over the first data record to get full list of all columns from api
-                    /*if (typeof Ext.data.StoreManager.lookup('zonesStore').data.items[0] != "undefined") {
-                        records = Ext.data.StoreManager.lookup('zonesStore').data.items[0].data;
+                    if (typeof Ext.data.StoreManager.lookup('spellsStore').data.items[0] != "undefined") {
+                        records = Ext.data.StoreManager.lookup('spellsStore').data.items[0].data;
                         Ext.Object.each(records, function (key, obj) {
                             if (!Ext.Array.contains(ignore, key)) {
                                 // push column onto stack
@@ -127,7 +111,7 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                                 });
                             }
                         });
-                    }*/
+                    }
 
                     // push action column onto stack last
                     newCols.push(action);
