@@ -4,7 +4,7 @@ Ext.define('peq.view.spells.Spells', {
 
     controller: 'spells',
 
-    layout: 'anchor',
+    layout: 'hbox',
 
     listeners: {
         afterrender: 'onAfterRender'
@@ -53,6 +53,13 @@ Ext.define('peq.view.spells.Spells', {
         itemId: 'Spells-PanelContainer',
         width: '100%',
         region: 'center',
-        items: []
+        layout: 'fit',
+        height: 5,
+        listeners: {
+            afterrender: 'onAfterRenderContentPanel'
+        },
+        items: [{
+            xtype: 'spells-grid'
+        }]
     }]
 });

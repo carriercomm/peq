@@ -26,6 +26,26 @@ Ext.define('peq.view.zones.ZonesGridController', {
         return value + "%";
     },
 
+    renderZType: function (value) {
+        switch (value) {
+            case '-1':
+                return "None";
+                break;
+            case '0':
+                return "Indoor";
+                break;
+            case '1':
+                return "Outdoor";
+                break;
+            case '2':
+                return "Dungeon";
+                break;
+            case '255':
+                return "Any";
+                break;
+        }
+    },
+
     onSearchZones: function (e) {
         var search = Ext.ComponentQuery.query("#zonesGrid-search")[0].inputEl.getValue();
         Ext.data.StoreManager.lookup('zonesStore').getProxy().setExtraParam('query', search);
