@@ -31,7 +31,7 @@ Ext.define('peq.view.zones.ZonesGridModel', {
                     var ignore, defaultCols, newCols, action, records;
                     
                     // columns to ignore when populating remaining columns (default columns)
-                    ignore = ['id', 'long_name', 'short_name', 'min_level', 'min_status', 'walkspeed', 'zone_exp_multiplier', 'castoutdoor', 'cancombat', 'canbind', 'canlevitate', 'suspendbuffs'];
+                    ignore = ['id', 'long_name', 'short_name', 'min_level', 'min_status', 'safe_x', 'safe_y', 'safe_z', 'walkspeed', 'zone_exp_multiplier', 'castoutdoor', 'cancombat', 'canbind', 'canlevitate', 'suspendbuffs'];
 
                     defaultCols = [{
                         text: 'ID', dataIndex: 'id', width: 115, align: 'center', hidden: false
@@ -43,6 +43,12 @@ Ext.define('peq.view.zones.ZonesGridModel', {
                         text: 'Min Level', dataIndex: 'min_level', flex: 1, align: 'center', hidden: false
                     }, {
                         text: 'Min Status', dataIndex: 'min_status', flex: 1, align: 'center', hidden: false
+                    }, {
+                        text: 'Safe X', dataIndex: 'safe_x', flex: 1, align: 'center', hidden: false
+                    }, {
+                        text: 'Safe Y', dataIndex: 'safe_y', flex: 1, align: 'center', hidden: false
+                    }, {
+                        text: 'Safe Z', dataIndex: 'safe_z', flex: 1, align: 'center', hidden: false
                     }, {
                         text: 'Walk Speed', dataIndex: 'walkspeed', flex: 1, align: 'center', hidden: false
                     }, {
@@ -70,6 +76,14 @@ Ext.define('peq.view.zones.ZonesGridModel', {
                                     glyph: 0xf013,
                                     menu: [{
                                         text: "Edit",
+                                        handler: function (grid, rowIndex, colIndex) {
+                                            setTimeout(function() {
+                                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
+                                            }, 200);
+                                        }
+                                    }, {
+                                        text: "Copy",
                                         handler: function (grid, rowIndex, colIndex) {
                                             setTimeout(function() {
                                                 var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
