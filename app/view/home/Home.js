@@ -23,7 +23,7 @@ Ext.define('peq.view.home.Home', {
             xtype: 'button',
             text: 'Settings',
             style: {
-                height: '30px',
+                height: '36px',
                 width: '100%'
             },
             menu: [{

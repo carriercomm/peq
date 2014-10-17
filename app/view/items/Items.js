@@ -28,7 +28,7 @@ Ext.define('peq.view.items.Items', {
             items: [{
                 text: 'Browse Items',
                 style: {
-                    height: '30px'
+                    height: '36px'
                 },
                 pressed: true
             }]
@@ -36,7 +36,7 @@ Ext.define('peq.view.items.Items', {
             xtype: 'button',
             text: 'Actions',
             style: {
-                height: '30px',
+                height: '36px',
                 width: '100%'
             },
             menu: [{

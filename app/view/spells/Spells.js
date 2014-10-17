@@ -28,20 +28,20 @@ Ext.define('peq.view.spells.Spells', {
             items: [{
                 text: 'Browse Spells',
                 style: {
-                    height: '30px'
+                    height: '36px'
                 },
                 pressed: true
             }, {
                 text: 'Browse Spell Sets',
                 style: {
-                    height: '30px'
+                    height: '36px'
                 }
             }]
         }, {
             xtype: 'button',
             text: 'Actions',
             style: {
-                height: '30px',
+                height: '36px',
                 width: '100%'
             },
             menu: [{

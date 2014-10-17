@@ -28,7 +28,7 @@ Ext.define('peq.view.spawns.Spawns', {
             items: [{
                 text: 'Browse Spawnpoints',
                 style: {
-                    height: '30px'
+                    height: '36px'
                 },
                 pressed: true
             }]

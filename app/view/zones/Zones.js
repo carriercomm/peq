@@ -28,7 +28,7 @@ Ext.define('peq.view.zones.Zones', {
             items: [{
                 text: 'Browse Zones',
                 style: {
-                    height: '30px'
+                    height: '36px'
                 },
                 pressed: true
             }]

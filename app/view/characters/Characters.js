@@ -28,7 +28,7 @@ Ext.define('peq.view.characters.Charactetrs', {
             items: [{
                 text: 'Browse Characters',
                 style: {
-                    height: '30px'
+                    height: '36px'
                 },
                 pressed: true
             }]

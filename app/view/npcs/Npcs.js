@@ -28,13 +28,13 @@ Ext.define('peq.view.npcs.Npcs', {
             items: [{
                 text: 'Browse Npcs',
                 style: {
-                    height: '30px'
+                    height: '36px'
                 },
                 pressed: true
             }, {
                 text: 'Browse Horses',
                 style: {
-                    height: '30px'
+                    height: '36px'
                 }
             }]
         }]
