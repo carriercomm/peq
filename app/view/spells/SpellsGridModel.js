@@ -66,7 +66,7 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                                         text: "Edit",
                                         handler: function (grid, rowIndex, colIndex) {
                                             setTimeout(function() {
-                                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                                var row = Ext.getCmp("spellsGrid-ID").getSelectionModel().getSelection().shift().getData();
                                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                                             }, 200);
                                         }
@@ -74,7 +74,7 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                                         text: "Copy",
                                         handler: function (grid, rowIndex, colIndex) {
                                             setTimeout(function() {
-                                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                                var row = Ext.getCmp("spellsGrid-ID").getSelectionModel().getSelection().shift().getData();
                                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                                             }, 200);
                                         }
@@ -82,7 +82,7 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                                         text: "Delete",
                                         handler: function (grid, rowIndex, colIndex) {
                                             setTimeout(function() {
-                                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                                var row = Ext.getCmp("spellsGrid-ID").getSelectionModel().getSelection().shift().getData();
                                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                                             }, 200);
                                         }
