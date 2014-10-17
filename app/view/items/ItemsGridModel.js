@@ -31,7 +31,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                     var ignore, defaultCols, newCols, action, records, container, container_found;
                     
                     // columns to ignore when populating remaining columns (default columns)
-                    ignore = ['iconUrl', 'id', 'Name', 'itemtype', 'container', 'magic', 'nodrop', 'norent', 'artifactFlag', 'ac', 'damage', 'delay', 'range'];
+                    ignore = ['icon', 'id', 'Name', 'itemtype', 'container', 'magic', 'nodrop', 'norent', 'artifactFlag', 'ac', 'damage', 'delay', 'range'];
                     
                     // search for a container in the results, if found set flag
                     container_found = false;
@@ -44,13 +44,15 @@ Ext.define('peq.view.items.ItemsGridModel', {
                     });
 
                     defaultCols = [{
-                        text: 'Icon', dataIndex: 'iconUrl', width: 65, hidden: false, renderer: 'renderIcon', sortable: false
+                        text: 'Icon', dataIndex: 'icon', width: 65, hidden: false, renderer: 'renderIcon', sortable: false
                     }, {
                         text: 'ID', dataIndex: 'id', width: 115, align: 'center', hidden: false, renderer: 'renderLucyLink'
                     }, {
                         text: 'Name', dataIndex: 'Name', flex: 3, hidden: false, renderer: 'renderBold'
                     }, {
                         text: 'Type', dataIndex: 'itemtype', flex: 1, align: 'center', hidden: false, renderer: 'renderItemType'
+                    }, {
+                        text: 'Req Level', dataIndex: 'reqlevel', flex: 1, align: 'center', hidden: false
                     }];
 
                     // if container found in results show bag related columns by default
@@ -59,9 +61,6 @@ Ext.define('peq.view.items.ItemsGridModel', {
                         ignore.push('bagslots');
                         ignore.push('bagtype');
                         ignore.push('bagwr');
-                        defaultCols.push({
-                            text: 'Container', dataIndex: 'container', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean', sortable: false
-                        });
                         defaultCols.push({
                             text: 'Bag Type', dataIndex: 'bagtype', flex: 1, align: 'center', hidden: false, renderer: 'renderBagType'
                         });
@@ -73,10 +72,6 @@ Ext.define('peq.view.items.ItemsGridModel', {
                         });
                         defaultCols.push({
                             text: 'Bag WR', dataIndex: 'bagwr', flex: 1, align: 'center', hidden: false, renderer: 'renderPercent'
-                        });
-                    } else {
-                        defaultCols.push({
-                            text: 'Container', dataIndex: 'container', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean', sortable: false
                         });
                     }
 

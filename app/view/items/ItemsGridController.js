@@ -27,7 +27,7 @@ Ext.define('peq.view.items.ItemsGridController', {
     },
 
     renderIcon: function (value) {
-        return '<img src="' + value + '" width="40" height="40" />';
+        return '<img src="resources/icons/item_' + value + '.png" width="40" height="40" />';
     },
 
     renderLucyLink: function (value) {
