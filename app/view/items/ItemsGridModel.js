@@ -108,14 +108,32 @@ Ext.define('peq.view.items.ItemsGridModel', {
                             var id = Ext.id();
                             setTimeout(function() {
                                 var button = Ext.create('Ext.button.Button', {
-                                    glyph: 0xf044,
-                                    text: "Edit",
-                                    handler: function (grid, rowIndex, colIndex) {
-                                        setTimeout(function() {
-                                            var row = Ext.getCmp("itemsGrid-ID").getSelectionModel().getSelection().shift().getData();
-                                            Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
-                                        }, 200);
-                                    }
+                                    glyph: 0xf013,
+                                    menu: [{
+                                        text: "Edit",
+                                        handler: function (grid, rowIndex, colIndex) {
+                                            setTimeout(function() {
+                                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
+                                            }, 200);
+                                        }
+                                    }, {
+                                        text: "Copy",
+                                        handler: function (grid, rowIndex, colIndex) {
+                                            setTimeout(function() {
+                                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
+                                            }, 200);
+                                        }
+                                    }, {
+                                        text: "Delete",
+                                        handler: function (grid, rowIndex, colIndex) {
+                                            setTimeout(function() {
+                                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
+                                            }, 200);
+                                        }
+                                    }]
                                 });
                                 if (Ext.get(id)) {
                                     button.render(Ext.get(id));

@@ -4,7 +4,7 @@ Ext.define('peq.view.zones.Zones', {
 
     controller: 'zones',
 
-    layout: 'anchor',
+    layout: 'hbox',
 
     listeners: {
         afterrender: 'onAfterRender'
@@ -38,6 +38,13 @@ Ext.define('peq.view.zones.Zones', {
         itemId: 'Zones-PanelContainer',
         width: '100%',
         region: 'center',
-        items: []
+        layout: 'fit',
+        height: 5,
+        listeners: {
+            afterrender: 'onAfterRenderContentPanel'
+        },
+        items: [{
+            xtype: 'zones-grid'
+        }]
     }]
 });
