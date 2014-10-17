@@ -34,6 +34,14 @@ Ext.define('peq.view.items.ItemsGridController', {
         return value + ' (<a href="http://lucy.allakhazam.com/item.html?id=' + value + '" target="_blank">Lucy</a>)';
     },
 
+    renderBagType: function (value) {
+        if (typeof StaticData.bagtypes[value] != "undefined") {
+            return StaticData.bagtypes[value];
+        } else {
+            return StaticData.worldcontainers[value];
+        }
+    },
+
     renderBagSize: function (value) {
         switch (value) {
             case "0":
@@ -48,6 +56,19 @@ Ext.define('peq.view.items.ItemsGridController', {
                 return "Giant";
             case "5":
                 return "Giant - Assembly Kit";
+        }
+    },
+
+    renderItemType: function (value, metaData, record) {
+        value = parseInt(value);
+        if (parseInt(value) == 0) {
+            if (parseInt(record.data.damage) < 1) {
+                return "Misc";
+            } else {
+                return StaticData.itemtypes[value];
+            }
+        } else {
+            return StaticData.itemtypes[value];
         }
     },
 

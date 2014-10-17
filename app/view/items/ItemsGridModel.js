@@ -31,7 +31,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                     var ignore, defaultCols, newCols, action, records, container, container_found;
                     
                     // columns to ignore when populating remaining columns (default columns)
-                    ignore = ['iconUrl', 'id', 'Name', 'typeName', 'container', 'magic', 'nodrop', 'norent', 'artifactFlag', 'ac', 'damage', 'delay', 'range'];
+                    ignore = ['iconUrl', 'id', 'Name', 'itemtype', 'container', 'magic', 'nodrop', 'norent', 'artifactFlag', 'ac', 'damage', 'delay', 'range'];
                     
                     // search for a container in the results, if found set flag
                     container_found = false;
@@ -44,26 +44,26 @@ Ext.define('peq.view.items.ItemsGridModel', {
                     });
 
                     defaultCols = [{
-                        text: 'Icon', dataIndex: 'iconUrl', width: 65, hidden: false, renderer: 'renderIcon'
+                        text: 'Icon', dataIndex: 'iconUrl', width: 65, hidden: false, renderer: 'renderIcon', sortable: false
                     }, {
                         text: 'ID', dataIndex: 'id', width: 115, align: 'center', hidden: false, renderer: 'renderLucyLink'
                     }, {
                         text: 'Name', dataIndex: 'Name', flex: 3, hidden: false, renderer: 'renderBold'
                     }, {
-                        text: 'Type', dataIndex: 'typeName', flex: 1, align: 'center', hidden: false, sortable: false
+                        text: 'Type', dataIndex: 'itemtype', flex: 1, align: 'center', hidden: false, renderer: 'renderItemType'
                     }];
 
                     // if container found in results show bag related columns by default
                     if (container_found) {
                         ignore.push('bagsize');
                         ignore.push('bagslots');
-                        ignore.push('bagTypeName');
+                        ignore.push('bagtype');
                         ignore.push('bagwr');
                         defaultCols.push({
-                            text: 'Container', dataIndex: 'container', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean'
+                            text: 'Container', dataIndex: 'container', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean', sortable: false
                         });
                         defaultCols.push({
-                            text: 'Bag Type', dataIndex: 'bagTypeName', flex: 1, align: 'center', hidden: false, sortable: false
+                            text: 'Bag Type', dataIndex: 'bagtype', flex: 1, align: 'center', hidden: false, renderer: 'renderBagType'
                         });
                         defaultCols.push({
                             text: 'Bag Size', dataIndex: 'bagsize', flex: 1, align: 'center', hidden: false, renderer: 'renderBagSize'
@@ -135,15 +135,17 @@ Ext.define('peq.view.items.ItemsGridModel', {
                     };
 
                     // loop over the first data record to get full list of all columns from api
-                    records = Ext.data.StoreManager.lookup('itemsStore').data.items[0].data;
-                    Ext.Object.each(records, function (key, obj) {
-                        if (!Ext.Array.contains(ignore, key)) {
-                            // push column onto stack
-                            newCols.push({
-                                text: Util.ucwords(key), dataIndex: key, flex: 1, hidden: true
-                            });
-                        }
-                    });
+                    if (typeof Ext.data.StoreManager.lookup('itemsStore').data.items[0] != "undefined") {
+                        records = Ext.data.StoreManager.lookup('itemsStore').data.items[0].data;
+                        Ext.Object.each(records, function (key, obj) {
+                            if (!Ext.Array.contains(ignore, key)) {
+                                // push column onto stack
+                                newCols.push({
+                                    text: Util.ucwords(key), dataIndex: key, flex: 1, hidden: true
+                                });
+                            }
+                        });
+                    }
 
                     // push action column onto stack last
                     newCols.push(action);
