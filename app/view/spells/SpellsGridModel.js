@@ -31,7 +31,7 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                     var columns, visibleCols, defaultCols, newCols, action, records;
                     
                     columns = {
-                        'icon': {
+                        'new_icon': {
                             text: 'Icon',
                             width: 50,
                             sortable: false,
