@@ -28,10 +28,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                     store.getProxy().setExtraParam('token', Ext.state.Manager.get('token'));
                 },
                 load: function() {
-                    var ignore, defaultCols, newCols, action, records, container, container_found;
-                    
-                    // columns to ignore when populating remaining columns (default columns)
-                    ignore = ['icon', 'id', 'Name', 'itemtype', 'container', 'magic', 'nodrop', 'norent', 'artifactFlag', 'ac', 'damage', 'delay', 'range'];
+                    var columns, visibleCols, defaultCols, newCols, action, records, container_found;
                     
                     // search for a container in the results, if found set flag
                     container_found = false;
@@ -43,128 +40,173 @@ Ext.define('peq.view.items.ItemsGridModel', {
                         }
                     });
 
-                    defaultCols = [{
-                        text: 'Icon', dataIndex: 'icon', width: 65, hidden: false, renderer: 'renderIcon', sortable: false
-                    }, {
-                        text: 'ID', dataIndex: 'id', width: 115, align: 'center', hidden: false, renderer: 'renderLucyLink'
-                    }, {
-                        text: 'Name', dataIndex: 'Name', flex: 3, hidden: false, renderer: 'renderBold'
-                    }, {
-                        text: 'Type', dataIndex: 'itemtype', flex: 1, align: 'center', hidden: false, renderer: 'renderItemType'
-                    }, {
-                        text: 'Req Level', dataIndex: 'reqlevel', flex: 1, align: 'center', hidden: false
-                    }];
+                    columns = {
+                        'icon': {
+                            text: 'Icon',
+                            width: 65,
+                            sortable: false,
+                            renderer: 'renderIcon',
+                            order: 0
+                        },
+                        'id': {
+                            text: 'ID',
+                            align: 'left',
+                            width: 115,
+                            order: 1
+                        },
+                        'Name': {
+                            text: 'Name',
+                            align: 'left',
+                            flex: 3,
+                            renderer: 'renderBold',
+                            order: 2
+                        },
+                        'itemtype': {
+                            text: 'Type',
+                            renderer: 'renderItemType',
+                            order: 3
+                        },
+                        'reqlevel': {
+                            text: 'Req Level',
+                            order: 4
+                        }
+                    };
 
                     // if container found in results show bag related columns by default
                     if (container_found) {
-                        ignore.push('bagsize');
-                        ignore.push('bagslots');
-                        ignore.push('bagtype');
-                        ignore.push('bagwr');
-                        defaultCols.push({
-                            text: 'Bag Type', dataIndex: 'bagtype', flex: 1, align: 'center', hidden: false, renderer: 'renderBagType'
-                        });
-                        defaultCols.push({
-                            text: 'Bag Size', dataIndex: 'bagsize', flex: 1, align: 'center', hidden: false, renderer: 'renderBagSize'
-                        });
-                        defaultCols.push({
-                            text: 'Bag Slots', dataIndex: 'bagslots', flex: 1, align: 'center', hidden: false
-                        });
-                        defaultCols.push({
-                            text: 'Bag WR', dataIndex: 'bagwr', flex: 1, align: 'center', hidden: false, renderer: 'renderPercent'
-                        });
+                        visibleCols = ['icon', 'id', 'Name', 'itemtype', 'bagtype', 'bagsize', 'bagslots', 'bagwr', 'magic', 'nodrop', 'norent', 'artifactFlag', 'ac', 'damage', 'delay', 'range'];
+
+                        columns['bagtype'] = {
+                            text: 'Bag Type',
+                            renderer: 'renderBagType',
+                            order: 5
+                        };
+
+                        columns['bagsize'] = {
+                            text: 'Bag Size',
+                            renderer: 'renderBagSize',
+                            order: 6
+                        };
+
+                        columns['bagslots'] = {
+                            text: 'Bag Slots',
+                            order: 7
+                        };
+                        
+                        columns['bagwr'] = {
+                            text: 'Bag WR',
+                            renderer: 'renderPercent',
+                            order: 8
+                        };
+                    } else {
+                        visibleCols = ['icon', 'id', 'Name', 'itemtype', 'magic', 'nodrop', 'norent', 'artifactFlag', 'ac', 'damage', 'delay', 'range'];
                     }
 
-                    defaultCols.push({
-                        text: 'Magic', dataIndex: 'magic', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean'
-                    });
-                    defaultCols.push({
-                        text: 'No-Drop', dataIndex: 'nodrop', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean'
-                    });
-                    defaultCols.push({
-                        text: 'No-Rent', dataIndex: 'norent', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean'
-                    });
-                    defaultCols.push({
-                        text: 'Artifact', dataIndex: 'artifactflag', flex: 1, align: 'center', hidden: false, renderer: 'renderBoolean'
-                    });
-                    defaultCols.push({
-                        text: 'Armor', dataIndex: 'ac', flex: 1, align: 'center', hidden: false
-                    });
-                    defaultCols.push({
-                        text: 'Damage', dataIndex: 'damage', flex: 1, align: 'center', hidden: false
-                    });
-                    defaultCols.push({
-                        text: 'Delay', dataIndex: 'delay', flex: 1, align: 'center', hidden: false
-                    });
-                    defaultCols.push({
-                        text: 'Range', dataIndex: 'range', flex: 1, align: 'center', hidden: false
-                    });
-
-                    newCols = defaultCols;
-
-                    action = {
-                        text: "Action",
-                        renderer: function(value) {
-                            var id = Ext.id();
-                            setTimeout(function() {
-                                var button = Ext.create('Ext.button.Button', {
-                                    glyph: 0xf013,
-                                    menu: [{
-                                        text: "Edit",
-                                        handler: function (grid, rowIndex, colIndex) {
-                                            setTimeout(function() {
-                                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
-                                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
-                                            }, 200);
-                                        }
-                                    }, {
-                                        text: "Copy",
-                                        handler: function (grid, rowIndex, colIndex) {
-                                            setTimeout(function() {
-                                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
-                                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
-                                            }, 200);
-                                        }
-                                    }, {
-                                        text: "Delete",
-                                        handler: function (grid, rowIndex, colIndex) {
-                                            setTimeout(function() {
-                                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
-                                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
-                                            }, 200);
-                                        }
-                                    }]
-                                });
-                                if (Ext.get(id)) {
-                                    button.render(Ext.get(id));
-                                }
-                            }, 1);
-                            return '<div id="' + id + '"></div>';
-                        },
-                        flex: 1,
-                        align: 'center',
-                        hidden: false,
-                        sortable: false
+                    columns['magic'] = {
+                        text: 'Magic',
+                        renderer: 'renderBoolean',
+                        order: (container_found) ? 9 : 5
                     };
+
+                    columns['nodrop'] = {
+                        text: 'No-Drop',
+                        renderer: 'renderBoolean',
+                        order: (container_found) ? 10 : 6
+                    };
+
+                    columns['norent'] = {
+                        text: 'No-Rent',
+                        renderer: 'renderBoolean',
+                        order: (container_found) ? 11 : 7
+                    };
+
+                    columns['artifact'] = {
+                        text: 'Artifact',
+                        renderer: 'renderBoolean',
+                        order: (container_found) ? 12 : 8
+                    };
+                    
+                    columns['ac'] = {
+                        text: 'Armor',
+                        order: (container_found) ? 13 : 9
+                    };
+
+                    columns['damage'] = {
+                        text: 'Damage',
+                        order: (container_found) ? 14 : 10
+                    };
+
+                    columns['delay'] = {
+                        text: 'Delay',
+                        order: (container_found) ? 15 : 11
+                    };
+
+                    columns['range'] = {
+                        text: 'Range',
+                        order: (container_found) ? 16 : 12
+                    };
+
+                    action = Util.grid.createActionColumn([{
+                        text: "Edit",
+                        handler: function (grid, rowIndex, colIndex) {
+                            setTimeout(function() {
+                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
+                            }, 200);
+                        }
+                    }, {
+                        text: "Copy",
+                        handler: function (grid, rowIndex, colIndex) {
+                            setTimeout(function() {
+                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
+                            }, 200);
+                        }
+                    }, {
+                        text: "Delete",
+                        handler: function (grid, rowIndex, colIndex) {
+                            setTimeout(function() {
+                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
+                            }, 200);
+                        }
+                    }]);
+
+                    newCols = [];
 
                     // loop over the first data record to get full list of all columns from api
                     if (typeof Ext.data.StoreManager.lookup('itemsStore').data.items[0] != "undefined") {
                         records = Ext.data.StoreManager.lookup('itemsStore').data.items[0].data;
                         Ext.Object.each(records, function (key, obj) {
-                            if (!Ext.Array.contains(ignore, key)) {
-                                // push column onto stack
-                                newCols.push({
-                                    text: Util.ucwords(key), dataIndex: key, flex: 1, hidden: true
-                                });
+                            var defaultProperties = {
+                                text: Util.ucwords(key.split('_').join(' ')),
+                                dataIndex: key,
+                                flex: 1,
+                                align: 'center',
+                                hidden: true
+                            };
+
+                            // if defaults object exists for this key in "columns" object, override values
+                            if (typeof columns[key] != "undefined") {
+                                defaultProperties = Util.grid.applyOverrides(defaultProperties, columns[key]);
+                                if (Ext.Array.contains(visibleCols, key)) {
+                                    defaultProperties.hidden = false;
+                                }
                             }
+                            
+                            // push column onto stack
+                            newCols.push(defaultProperties);
                         });
                     }
+
+                    // re-order column according to "order" specified in original "columns" object
+                    newCols = Util.grid.reorderColumns(newCols);
 
                     // push action column onto stack last
                     newCols.push(action);
 
                     Ext.getCmp("itemsGrid-ID").reconfigure(undefined, newCols);
-                    Ext.getCmp("itemsGrid-ID").unmask();  
+                    Ext.getCmp("itemsGrid-ID").unmask();
                 }
             }
         }

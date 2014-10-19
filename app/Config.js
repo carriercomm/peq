@@ -19,5 +19,13 @@ Ext.define('peq.singleton.Config', {
 
 	getAppUrl: function () {
 		return (this.environment == "production") ? this.appUrl : this.appUrlDev;
+	},
+
+	isSmallerScreen: function () {
+		if (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) <= 1440) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 });

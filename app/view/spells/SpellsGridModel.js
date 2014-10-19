@@ -28,90 +28,113 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                     store.getProxy().setExtraParam('token', Ext.state.Manager.get('token'));
                 },
                 load: function() {
-                    var ignore, defaultCols, newCols, action, records;
+                    var columns, visibleCols, defaultCols, newCols, action, records;
                     
-                    // columns to ignore when populating remaining columns (default columns)
-                    ignore = ['new_icon', 'id', 'name', 'goodEffect', 'mana', 'range', 'cast_time', 'recovery_time', 'recast_time'];
-
-                    defaultCols = [{
-                        text: 'Icon', dataIndex: 'new_icon', width: 50, hidden: false, renderer: 'renderIcon', sortable: false
-                    }, {
-                        text: 'ID', dataIndex: 'id', width: 80, align: 'center', hidden: false
-                    }, {
-                        text: 'Name', dataIndex: 'name', flex: 3, hidden: false, renderer: 'renderBold'
-                    }, {
-                        text: 'Type', dataIndex: 'goodEffect', flex: 1, align: 'center', hidden: false, renderer: 'renderType'
-                    }, {
-                        text: 'Mana', dataIndex: 'mana', flex: 1, align: 'center', hidden: false
-                    }, {
-                        text: 'Range', dataIndex: 'range', flex: 1, align: 'center', hidden: false
-                    }, {
-                        text: 'Cast Time', dataIndex: 'cast_time', flex: 1, align: 'center', hidden: false
-                    }, {
-                        text: 'Recovery Time', dataIndex: 'recovery_time', flex: 1, align: 'center', hidden: false
-                    }, {
-                        text: 'Recast Time', dataIndex: 'recast_time', flex: 1, align: 'center', hidden: false
-                    }];
-
-                    newCols = defaultCols;
-
-                    action = {
-                        text: "Action",
-                        renderer: function(value) {
-                            var id = Ext.id();
-                            setTimeout(function() {
-                                var button = Ext.create('Ext.button.Button', {
-                                    glyph: 0xf013,
-                                    menu: [{
-                                        text: "Edit",
-                                        handler: function (grid, rowIndex, colIndex) {
-                                            setTimeout(function() {
-                                                var row = Ext.getCmp("spellsGrid-ID").getSelectionModel().getSelection().shift().getData();
-                                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
-                                            }, 200);
-                                        }
-                                    }, {
-                                        text: "Copy",
-                                        handler: function (grid, rowIndex, colIndex) {
-                                            setTimeout(function() {
-                                                var row = Ext.getCmp("spellsGrid-ID").getSelectionModel().getSelection().shift().getData();
-                                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
-                                            }, 200);
-                                        }
-                                    }, {
-                                        text: "Delete",
-                                        handler: function (grid, rowIndex, colIndex) {
-                                            setTimeout(function() {
-                                                var row = Ext.getCmp("spellsGrid-ID").getSelectionModel().getSelection().shift().getData();
-                                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
-                                            }, 200);
-                                        }
-                                    }]
-                                });
-                                if (Ext.get(id)) {
-                                    button.render(Ext.get(id));
-                                }
-                            }, 1);
-                            return '<div id="' + id + '"></div>';
+                    columns = {
+                        'icon': {
+                            text: 'Icon',
+                            width: 50,
+                            sortable: false,
+                            renderer: 'renderIcon',
+                            order: 0
                         },
-                        flex: 1,
-                        align: 'center',
-                        hidden: false,
-                        sortable: false
+                        'id': {
+                            text: 'ID',
+                            align: 'left',
+                            width: 80,
+                            order: 1
+                        },
+                        'name': {
+                            text: 'Name',
+                            align: 'left',
+                            flex: 3,
+                            renderer: 'renderBold',
+                            order: 2
+                        },
+                        'goodEffect': {
+                            text: 'Type',
+                            renderer: 'renderType',
+                            order: 3
+                        },
+                        'mana': {
+                            text: 'Mana',
+                            order: 4
+                        },
+                        'range': {
+                            text: 'Range',
+                            order: 5
+                        },
+                        'cast_time': {
+                            text: 'Cast Time',
+                            order: 6
+                        },
+                        'recovery_time': {
+                            text: 'Recovery Time',
+                            order: 7
+                        },
+                        'recast_time': {
+                            text: 'Recast Time',
+                            order: 8
+                        }
                     };
+
+                    visibleCols = ['new_icon', 'id', 'name', 'goodEffect', 'mana', 'range', 'cast_time', 'recovery_time', 'recast_time'];
+
+                    action = Util.grid.createActionColumn([{
+                        text: "Edit",
+                        handler: function (grid, rowIndex, colIndex) {
+                            setTimeout(function() {
+                                var row = Ext.getCmp("spellsGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
+                            }, 200);
+                        }
+                    }, {
+                        text: "Copy",
+                        handler: function (grid, rowIndex, colIndex) {
+                            setTimeout(function() {
+                                var row = Ext.getCmp("spellsGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
+                            }, 200);
+                        }
+                    }, {
+                        text: "Delete",
+                        handler: function (grid, rowIndex, colIndex) {
+                            setTimeout(function() {
+                                var row = Ext.getCmp("spellsGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
+                            }, 200);
+                        }
+                    }]);
+
+                    newCols = [];
 
                     // loop over the first data record to get full list of all columns from api
                     if (typeof Ext.data.StoreManager.lookup('spellsStore').data.items[0] != "undefined") {
                         records = Ext.data.StoreManager.lookup('spellsStore').data.items[0].data;
                         Ext.Object.each(records, function (key, obj) {
-                            if (!Ext.Array.contains(ignore, key)) {
-                                // push column onto stack
-                                newCols.push({
-                                    text: Util.ucwords(key), dataIndex: key, flex: 1, hidden: true
-                                });
+                            var defaultProperties = {
+                                text: Util.ucwords(key.split('_').join(' ')),
+                                dataIndex: key,
+                                flex: 1,
+                                align: 'center',
+                                hidden: true
+                            };
+
+                            // if defaults object exists for this key in "columns" object, override values
+                            if (typeof columns[key] != "undefined") {
+                                defaultProperties = Util.grid.applyOverrides(defaultProperties, columns[key]);
+                                if (Ext.Array.contains(visibleCols, key)) {
+                                    defaultProperties.hidden = false;
+                                }
                             }
+                            
+                            // push column onto stack
+                            newCols.push(defaultProperties);
                         });
                     }
+
+                    // re-order column according to "order" specified in original "columns" object
+                    newCols = Util.grid.reorderColumns(newCols);
 
                     // push action column onto stack last
                     newCols.push(action);
