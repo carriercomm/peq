@@ -10,7 +10,8 @@ Ext.define('peq.Application', {
 
     requires: [
     	'peq.*',
-        'Ext.History'
+        'Ext.History',
+        'Ext.dom.Query'
     ],
 
     controllers: [

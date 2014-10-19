@@ -10,6 +10,10 @@ Ext.define('peq.view.zones.ZonesGridController', {
         Ext.data.StoreManager.lookup('zonesStore').load({params: {token: Ext.state.Manager.get('token'), page: 1}});
     },
 
+    renderName: function (value, metaData, record) {
+        return '<a href="javascript:peq.app.getController(\'peq.view.zones.ZonesGridController\').showMap(\'' + record.data.short_name + '\');" style="color: #000;" data-qtip="View Map"><div class="fa fa-globe" style="cursor: zoom-in; margin-right: 5px;"></div></a><strong>' + value + '</strong>';
+    },
+
     renderBold: function (value) {
         return "<strong>" + value + "</strong>";
     },
@@ -44,6 +48,10 @@ Ext.define('peq.view.zones.ZonesGridController', {
                 return "Any";
                 break;
         }
+    },
+
+    showMap: function (short_name) {
+        Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
     },
 
     onSearchZones: function (e) {

@@ -69,6 +69,63 @@ Ext.define('peq.view.items.ItemsGridModel', {
                         'reqlevel': {
                             text: 'Req Level',
                             order: 4
+                        },
+                        'magic': {
+                            text: 'Magic',
+                            renderer: 'renderBoolean',
+                            order: (container_found) ? 9 : 5
+                        },
+                        'nodrop': {
+                            text: 'No-Drop',
+                            renderer: 'renderBoolean',
+                            order: (container_found) ? 10 : 6
+                        },
+                        'norent': {
+                            text: 'No-Rent',
+                            renderer: 'renderBoolean',
+                            order: (container_found) ? 11 : 7
+                        },
+                        'artifact': {
+                            text: 'Artifact',
+                            renderer: 'renderBoolean',
+                            order: (container_found) ? 12 : 8
+                        },
+                        'ac': {
+                            text: 'Armor',
+                            order: (container_found) ? 13 : 9
+                        },
+                        'damage': {
+                            text: 'Damage',
+                            order: (container_found) ? 14 : 10
+                        },
+                        'delay': {
+                            text: 'Delay',
+                            order: (container_found) ? 15 : 11
+                        },
+                        'range': {
+                            text: 'Range',
+                            order: (container_found) ? 16 : 12
+                        },
+                        'ldonsold': {
+                            renderer: 'renderBoolean'
+                        },
+                        'tradeskills': {
+                            renderer: 'renderBoolean'
+                        },
+                        'attuneable': {
+                            renderer: 'renderBoolean'
+                        },
+                        'nopet': {
+                            renderer: 'renderBoolean'
+                        },
+                        'potionbelt': {
+                            renderer: 'renderBoolean'
+                        },
+                        'stackable': {
+                            renderer: 'renderBoolean'
+                        },
+                        'expendablearrow': {
+                            renderer: 'renderBoolean'
                         }
                     };
 
@@ -101,50 +158,6 @@ Ext.define('peq.view.items.ItemsGridModel', {
                     } else {
                         visibleCols = ['icon', 'id', 'Name', 'itemtype', 'magic', 'nodrop', 'norent', 'artifactFlag', 'ac', 'damage', 'delay', 'range'];
                     }
-
-                    columns['magic'] = {
-                        text: 'Magic',
-                        renderer: 'renderBoolean',
-                        order: (container_found) ? 9 : 5
-                    };
-
-                    columns['nodrop'] = {
-                        text: 'No-Drop',
-                        renderer: 'renderBoolean',
-                        order: (container_found) ? 10 : 6
-                    };
-
-                    columns['norent'] = {
-                        text: 'No-Rent',
-                        renderer: 'renderBoolean',
-                        order: (container_found) ? 11 : 7
-                    };
-
-                    columns['artifact'] = {
-                        text: 'Artifact',
-                        renderer: 'renderBoolean',
-                        order: (container_found) ? 12 : 8
-                    };
-                    
-                    columns['ac'] = {
-                        text: 'Armor',
-                        order: (container_found) ? 13 : 9
-                    };
-
-                    columns['damage'] = {
-                        text: 'Damage',
-                        order: (container_found) ? 14 : 10
-                    };
-
-                    columns['delay'] = {
-                        text: 'Delay',
-                        order: (container_found) ? 15 : 11
-                    };
-
-                    columns['range'] = {
-                        text: 'Range',
-                        order: (container_found) ? 16 : 12
-                    };
 
                     action = Util.grid.createActionColumn([{
                         text: "Edit",

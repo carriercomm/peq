@@ -41,7 +41,7 @@ Ext.define('peq.view.zones.ZonesGridModel', {
                             text: 'Name',
                             align: 'left',
                             flex: 3,
-                            renderer: 'renderBold',
+                            renderer: 'renderName',
                             order: 1
                         },
                         'short_name': {

@@ -1,7 +1,7 @@
 Ext.define('peq.view.spells.SpellsGridModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.spellsgrid',
-    
+
     stores: {
         spells: {
             storeId: 'spellsStore',
@@ -75,6 +75,27 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                         'recast_time': {
                             text: 'Recast Time',
                             order: 8
+                        },
+                        'EnvironmentType': {
+                            renderer: 'renderEnvironmentType'
+                        },
+                        'TimeOfDay': {
+                            renderer: 'renderTimeOfDay'
+                        },
+                        'uninterruptable': {
+                            renderer: 'renderBoolean'
+                        },
+                        'deleteable': {
+                            renderer: 'renderBoolean'
+                        },
+                        'short_buff_box': {
+                            renderer: 'renderBoolean'
+                        },
+                        'can_mgb': {
+                            renderer: 'renderBoolean'
+                        },
+                        'nodispell': {
+                            renderer: 'renderBoolean'
                         }
                     };
 
@@ -140,7 +161,23 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                     newCols.push(action);
 
                     Ext.getCmp("spellsGrid-ID").reconfigure(undefined, newCols);
-                    Ext.getCmp("spellsGrid-ID").unmask();  
+                    Ext.getCmp("spellsGrid-ID").unmask();
+
+                    // find any results with missing icon image file and perform delayed update with unknown icons.
+                    setTimeout(function() {
+                        Ext.Array.each(AppConfig.missingGems, function(gem) {
+                            var dom = Ext.dom.Query.select('.' + gem);
+                            Ext.Object.each(dom, function(key, el) {
+                                var src, type;
+                                el = Ext.get(el);
+                                src = el.getAttribute('src');
+                                src = src.split('.')[0];
+                                type = src.substr(src.length - 1);
+
+                                el.set({src: 'resources/icons/gem_unknown' + type + '.png'});
+                            });
+                        });
+                    }, 500);
                 }
             }
         }

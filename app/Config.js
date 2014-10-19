@@ -13,6 +13,8 @@ Ext.define('peq.singleton.Config', {
 	api_dev: "http://peq-api.devroar.com",
 	api_prod: "http://peq-api.devroar.com",
 
+	missingGems: [],
+
 	getApiEndpoint: function () {
 		return (this.environment == "production") ? this.api_prod : this.api_dev;
 	},
