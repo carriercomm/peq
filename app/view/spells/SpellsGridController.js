@@ -52,6 +52,10 @@ Ext.define('peq.view.spells.SpellsGridController', {
         }
     },
 
+    renderLucyLink: function (value) {
+        return value + ' (<a href="http://lucy.allakhazam.com/spell.html?id=' + value + '" target="_blank">Lucy</a>)';
+    },
+
     renderType: function (value) {
         switch (value) {
             case '0':

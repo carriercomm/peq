@@ -41,7 +41,8 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                         'id': {
                             text: 'ID',
                             align: 'left',
-                            width: 80,
+                            width: 110,
+                            renderer: 'renderLucyLink',
                             order: 1
                         },
                         'name': {
