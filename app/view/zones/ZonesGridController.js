@@ -54,14 +54,33 @@ Ext.define('peq.view.zones.ZonesGridController', {
         }
     },
 
-    showMap: function (short_name) {
-        Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
-    },
-
     onSearchZones: function (e) {
         var search = Ext.ComponentQuery.query("#zonesGrid-search")[0].inputEl.getValue();
         Ext.data.StoreManager.lookup('zonesStore').getProxy().setExtraParam('query', search);
         Ext.getCmp("zonesGrid-ID").lookupReference('pagingtoolbartop').moveFirst();
         Ext.data.StoreManager.lookup('zonesStore').load({params: {page: 1}});
+    },
+
+    showMap: function (short_name) {
+        var maps, mapWindow;
+        
+        maps = StaticData.maps[short_name];
+        mapWindow = this.createMap(maps);
+        
+        mapWindow.show();
+        //Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
+    },
+
+    createMap: function (maps) {
+        var multiple = false;
+        if (maps.length > 1) {
+            multiple = true;
+        }
+
+        return new peq.view.zones.MapViewer({
+            'maps': maps,
+            'multiple': multiple,
+            page: 1
+        });
     }
 });
