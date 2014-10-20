@@ -11,7 +11,11 @@ Ext.define('peq.view.zones.ZonesGridController', {
     },
 
     renderName: function (value, metaData, record) {
-        return '<a href="javascript:peq.app.getController(\'peq.view.zones.ZonesGridController\').showMap(\'' + record.data.short_name + '\');" style="color: #000;" data-qtip="View Map"><div class="fa fa-globe" style="cursor: zoom-in; margin-right: 5px;"></div></a><strong>' + value + '</strong>';
+        if (typeof StaticData.maps[record.data.short_name] != "undefined") {
+            return '<a href="javascript:peq.app.getController(\'peq.view.zones.ZonesGridController\').showMap(\'' + record.data.short_name + '\');" style="color: #000;" data-qtip="View Map"><div class="fa fa-globe" style="cursor: zoom-in; margin-right: 5px;"></div></a><strong>' + value + '</strong>';
+        } else {
+            return '<strong>' + value + '</strong>';
+        }
     },
 
     renderBold: function (value) {

@@ -6,6 +6,129 @@ Ext.define('peq.singleton.Static', {
         this.initConfig(config);
     },
 
+    maps: {
+        'abysmal':          ['abysmal.jpg'],
+        'acrylia':          ['acrylia.png'],
+        'airplane':         ['airplane.jpg'],
+        'akanon':           ['akanon.jpg'],
+        'befallen':         ['befallen.jpg'],
+        'befallenb':        ['befallenb.jpg'],
+        'beholder':         ['beholder.jpg'],
+        'blackburrow': [
+            'blackburrow1.jpg',
+            'blackburrow2.jpg',
+            'blackburrow3.jpg'
+        ],
+        'butcher':          ['butcher.jpg'],
+        'cauldron':         ['cauldron.jpg'],
+        'commons':          ['commons.jpg'],
+        'crushbone':        ['crushbone.jpg'],
+        'eastkarana':       ['eastkarana.jpg'],
+        'ecommons':         ['ecommons.jpg'],
+        'erudnext': [
+            'erudnext1.jpg',
+            'erudnext2.jpg'
+        ],
+        'erudnint':         ['erudnint.jpg'],
+        'erudsxing':        ['erudsxing.jpg'],
+        'everfrost': [
+            'everfrost1.jpg',
+            'everfrost2.jpg'
+        ],
+        'fearplane':        ['fearplane.jpg'],
+        'feerrott':         ['feerrott.jpg'],
+        'felwithea':        ['felwithea.jpg'],
+        'felwitheb':        ['felwitheb.jpg'],
+        'firiona': [
+            'firiona1.jpg',
+            'firiona2.jpg'
+        ],
+        'freeporte':        ['freeporte.jpg'],
+        'freeportn':        ['freeportn.jpg'],
+        'freeportsewers':   ['freeportsewers.jpg'],
+        'freeportw':        ['freeportw.jpg'],
+        'gfaydark':         ['gfaydark.jpg'],
+        'grobb':            ['grobb.jpg'],
+        'gukbottom': [
+            'gukbottom1.jpg',
+            'gukbottom2.jpg'
+        ],
+        'guktop':           ['guktop.jpg'],
+        'halas':            ['halas.jpg'],
+        'hateplane':        ['hateplane.jpg'],
+        'highkeep': [
+            'highkeep1.jpg',
+            'highkeep2.jpg'
+        ],
+        'highpass':         ['highpass.jpg'],
+        'innothule':        ['innothule.jpg'],
+        'kaladima':         ['kaladima.jpg'],
+        'kaladimb':         ['kaladimb.jpg'],
+        'kedge':            ['kedge.gif'],
+        'kerraridge':       ['kerraridge.jpg'],
+        'kithicor':         ['kithicor.jpg'],
+        'lakerathe':        ['lakerathe.jpg'],
+        'lavastorm':        ['lavastorm.jpg'],
+        'lfaydark':         ['lfaydark.jpg'],
+        'mischiefplane':    ['mischiefplane.gif'],
+        'mistmoore':        ['mistmoore.jpg'],
+        'misty':            ['misty.jpg'],
+        'najena':           ['najena.jpg'],
+        'nektulos':         ['nektulos.jpg'],
+        'neriaka':          ['neriaka.jpg'],
+        'neriakb':          ['neriakb.jpg'],
+        'neriakc':          ['neriakc.jpg'],
+        'northkarana':      ['northkarana.jpg'],
+        'nro':              ['nro.jpg'],
+        'oasis':            ['oasis.jpg'],
+        'oggok':            ['oggok.jpg'],
+        'oot': [
+            'oot1.jpg',
+            'oot2.jpg'
+        ],
+        'paineel': [
+            'paineel1.jpg',
+            'paineel2.jpg'
+        ],
+        'permafrost':       ['permafrost.jpg'],
+        'qcat':             ['qcat.jpg'],
+        'qey2hh1':          ['qey2hh1.jpg'],
+        'qeynos':           ['qeynos.jpg'],
+        'qeynos2':          ['qeynos2.jpg'],
+        'qeytoqrg':         ['qeytoqrg.jpg'],
+        'qrg':              ['qrg.jpg'],
+        'rathemtn':         ['rathemtn.jpg'],
+        'rivervale':        ['rivervale.jpg'],
+        'runnyeye': [
+            'runnyeye1.jpg',
+            'runnyeye2.jpg',
+            'runnyeye3.jpg',
+            'runnyeye4.jpg'
+        ],
+        'sebilis': [
+            'sebilis1.jpg',
+            'sebilis2.jpg'
+        ],
+        'soldunga':         ['soldunga.jpg'],
+        'soldungb':         ['soldungb.jpg'],
+        'soltemple': [
+            'soltemple1.jpg',
+            'soltemple2.jpg'
+        ],
+        'southkarana':      ['southkarana.jpg'],
+        'sro':              ['sro.jpg'],
+        'steamfont': [
+            'steamfont1.jpg',
+            'steamfont2.jpg'
+        ],
+        'toxxulia':         ['toxxulia.jpg'],
+        'trakanon':         ['trakanon.jpg'],
+        'unrest': [
+            'unrest1.jpg',
+            'unrest2.jpg'
+        ]
+    },
+
     genders: {
         '0': 'Male',
         '1': 'Female',
