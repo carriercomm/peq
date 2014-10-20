@@ -34,7 +34,7 @@ Ext.define('peq.view.zones.ZonesGridModel', {
                         'id': {
                             text: 'ID',
                             align: 'left',
-                            width: 115,
+                            width: 80,
                             order: 0
                         },
                         'long_name': {
@@ -46,6 +46,7 @@ Ext.define('peq.view.zones.ZonesGridModel', {
                         },
                         'short_name': {
                             text: 'Short Name',
+                            width: 120,
                             order: 2
                         },
                         'min_level': {

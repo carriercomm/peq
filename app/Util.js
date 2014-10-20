@@ -111,6 +111,9 @@ Ext.define('peq.singleton.Util', {
         applyOverrides: function(obj1, obj2) {
             Ext.Object.each(obj2, function (key, value) {
                 obj1[key] = value;
+                if (typeof obj1['width'] != "undefined") {
+                    obj1['flex'] = undefined;
+                }
             });
             return obj1;
         },
@@ -150,7 +153,7 @@ Ext.define('peq.singleton.Util', {
                     }, 1);
                     return '<div id="' + id + '"></div>';
                 },
-                flex: 1,
+                width: 70,
                 align: 'center',
                 hidden: false,
                 sortable: false

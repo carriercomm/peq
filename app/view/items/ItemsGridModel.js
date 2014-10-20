@@ -51,7 +51,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                         'id': {
                             text: 'ID',
                             align: 'left',
-                            width: 115,
+                            width: 80,
                             order: 1
                         },
                         'Name': {
