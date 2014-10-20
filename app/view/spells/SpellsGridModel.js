@@ -161,6 +161,7 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                     // push action column onto stack last
                     newCols.push(action);
 
+                    AppConfig.loadedGems = [];
                     Ext.getCmp("spellsGrid-ID").reconfigure(undefined, newCols);
                     Ext.getCmp("spellsGrid-ID").unmask();
 

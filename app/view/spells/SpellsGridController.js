@@ -26,28 +26,38 @@ Ext.define('peq.view.spells.SpellsGridController', {
         return value + "%";
     },
 
-    renderIcon: function (value, metaData, record) {
+    renderIcon: function (value, metaData, record, index) {
         if (parseInt(record.data.goodEffect) == 0) {
-            Ext.Ajax.request({
-                url: 'resources/icons/gem_' + value + 'd.png',
-                success: function(response, opts) {},
-                failure: function(response, opts) {
-                    if (!Ext.Array.contains(AppConfig.missingGems, 'gem_' + value + 'd')) {
-                        AppConfig.missingGems.push('gem_' + value + 'd');
-                    }
+            if (!Ext.Array.contains(AppConfig.missingGems, 'gem_' + value + 'd')) {
+                if (!Ext.Array.contains(AppConfig.loadedGems, 'gem_' + value + 'd')) {
+                    AppConfig.loadedGems.push('gem_' + value + 'd');
+                    Ext.Ajax.request({
+                        url: 'resources/icons/gem_' + value + 'd.png',
+                        success: function(response, opts) {},
+                        failure: function(response, opts) {
+                            if (!Ext.Array.contains(AppConfig.missingGems, 'gem_' + value + 'd')) {
+                                AppConfig.missingGems.push('gem_' + value + 'd');
+                            }
+                        }
+                    });
                 }
-            });
+            }
             return '<img class="gem_' + value + 'd" src="resources/icons/gem_' + value + 'd.png" width="26" height="26" />';
         } else if (parseInt(record.data.goodEffect) == 1 || parseInt(record.data.goodEffect) == 2) {
-            Ext.Ajax.request({
-                url: 'resources/icons/gem_' + value + 'b.png',
-                success: function(response, opts) {},
-                failure: function(response, opts) {
-                    if (!Ext.Array.contains(AppConfig.missingGems, 'gem_' + value + 'b')) {
-                        AppConfig.missingGems.push('gem_' + value + 'b');
-                    }
+            if (!Ext.Array.contains(AppConfig.missingGems, 'gem_' + value + 'b')) {
+                if (!Ext.Array.contains(AppConfig.loadedGems, 'gem_' + value + 'b')) {
+                    AppConfig.loadedGems.push('gem_' + value + 'b');
+                    Ext.Ajax.request({
+                        url: 'resources/icons/gem_' + value + 'b.png',
+                        success: function(response, opts) {},
+                        failure: function(response, opts) {
+                            if (!Ext.Array.contains(AppConfig.missingGems, 'gem_' + value + 'b')) {
+                                AppConfig.missingGems.push('gem_' + value + 'b');
+                            }
+                        }
+                    });
                 }
-            });
+            }
             return '<img class="gem_' + value + 'b" src="resources/icons/gem_' + value + 'b.png" width="26" height="26" />';
         }
     },

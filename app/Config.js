@@ -15,6 +15,9 @@ Ext.define('peq.singleton.Config', {
 
 	missingGems: [],
 
+	// gems are placed here just before their ajax check is fired off so we don't request gems multiple times
+	loadedGems: [],
+
 	getApiEndpoint: function () {
 		return (this.environment == "production") ? this.api_prod : this.api_dev;
 	},
