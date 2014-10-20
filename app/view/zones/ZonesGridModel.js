@@ -31,7 +31,7 @@ Ext.define('peq.view.zones.ZonesGridModel', {
                     var columns, visibleCols, defaultCols, newCols, action, records;
                     
                     columns = {
-                        'id': {
+                        'zoneidnumber': {
                             text: 'ID',
                             align: 'left',
                             width: 80,
@@ -110,9 +110,9 @@ Ext.define('peq.view.zones.ZonesGridModel', {
                     };
 
                     if (AppConfig.isSmallerScreen()) {
-                        visibleCols = ['id', 'long_name', 'short_name', 'min_level', 'min_status', 'ztype', 'safe_x', 'safe_y', 'safe_z', 'walkspeed', 'zone_exp_multiplier'];
+                        visibleCols = ['zoneidnumber', 'long_name', 'short_name', 'min_level', 'min_status', 'ztype', 'safe_x', 'safe_y', 'safe_z', 'walkspeed', 'zone_exp_multiplier'];
                     } else {
-                        visibleCols = ['id', 'long_name', 'short_name', 'min_level', 'min_status', 'ztype', 'safe_x', 'safe_y', 'safe_z', 'walkspeed', 'zone_exp_multiplier', 'castoutdoor', 'cancombat', 'canbind', 'canlevitate', 'suspendbuffs'];
+                        visibleCols = ['zoneidnumber', 'long_name', 'short_name', 'min_level', 'min_status', 'ztype', 'safe_x', 'safe_y', 'safe_z', 'walkspeed', 'zone_exp_multiplier', 'castoutdoor', 'cancombat', 'canbind', 'canlevitate', 'suspendbuffs'];
                     }
 
                     action = Util.grid.createActionColumn([{
