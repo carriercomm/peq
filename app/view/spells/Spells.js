@@ -30,12 +30,14 @@ Ext.define('peq.view.spells.Spells', {
                 style: {
                     height: '36px'
                 },
-                pressed: true
+                pressed: true,
+                handler: 'onSwitchSpells'
             }, {
                 text: 'Browse Spell Sets',
                 style: {
                     height: '36px'
-                }
+                },
+                handler: 'onSwitchSpellsets'
             }]
         }, {
             xtype: 'button',
@@ -50,7 +52,7 @@ Ext.define('peq.view.spells.Spells', {
         }]
     }, {
         xtype: 'panel',
-        itemId: 'Spells-PanelContainer',
+        id: 'Spells-PanelContainer',
         width: '100%',
         region: 'center',
         layout: 'fit',
