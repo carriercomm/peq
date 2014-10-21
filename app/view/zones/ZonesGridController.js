@@ -11,11 +11,11 @@ Ext.define('peq.view.zones.ZonesGridController', {
     },
 
     renderName: function (value, metaData, record) {
-        if (typeof StaticData.maps[record.data.short_name] != "undefined") {
+        //if (typeof StaticData.maps[record.data.short_name] != "undefined") {
             return '<a href="javascript:peq.app.getController(\'peq.view.zones.ZonesGridController\').showMap(\'' + record.data.short_name + '\');" style="color: #000;" data-qtip="View Map"><div class="fa fa-globe" style="cursor: zoom-in; margin-right: 5px;"></div></a><strong>' + value + '</strong>';
-        } else {
-            return '<strong>' + value + '</strong>';
-        }
+        //} else {
+        //    return '<strong>' + value + '</strong>';
+        //}
     },
 
     renderBold: function (value) {
@@ -62,25 +62,25 @@ Ext.define('peq.view.zones.ZonesGridController', {
     },
 
     showMap: function (short_name) {
-        var maps, mapWindow;
-        
-        maps = StaticData.maps[short_name];
-        mapWindow = this.createMap(maps);
-        
+        var mapWindow;
+        mapWindow = this.createMap(short_name);
         mapWindow.show();
-        //Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
     },
 
-    createMap: function (maps) {
-        var multiple = false;
-        if (maps.length > 1) {
-            multiple = true;
-        }
-
-        return new peq.view.zones.MapViewer({
-            'maps': maps,
-            'multiple': multiple,
-            page: 1
+    createMap: function (short_name) {
+        var viewer = new peq.view.zones.MapViewer({
+            'maps': ['maps_' + short_name + '.map.png']
         });
+        Ext.Ajax.request({
+            url: 'resources/maps/maps_' + short_name + '.map.png',
+            success: function(response, opts) {
+
+            },
+            failure: function(response, opts) {
+                viewer.destroy();
+                Ext.MessageBox.alert("No Map Found", "No map found for this zone, sorry!");
+            }
+        });
+        return viewer;
     }
 });

@@ -183,7 +183,7 @@ Ext.define('peq.view.zones.MapViewer', {
         text: 'View Original Size',
         listeners: {
             click: function() {
-
+                
             }
         }
     }]
