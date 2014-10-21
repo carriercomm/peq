@@ -3,7 +3,7 @@ Ext.define('peq.view.zones.MapViewerController', {
     alias: 'controller.mapviewer',
     
     onAfterRender: function(e) {
-        Ext.get("map-object").set({"src": 'resources/maps/' + this.maps[0]});
+        Ext.get("map-object").set({"src": 'resources/maps/' + Ext.getCmp("map-viewer").maps[0]});
 
         // set updater interval to continually resize as the image loads
         this.updater = setInterval(function() {
