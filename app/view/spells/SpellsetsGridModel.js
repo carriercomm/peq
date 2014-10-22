@@ -44,16 +44,34 @@ Ext.define('peq.view.spells.SpellsetsGridModel', {
                             renderer: 'renderBold',
                             order: 2
                         },
+                        'attackProcSpell': {
+                            text: 'Attack Proc',
+                            align: 'left',
+                            flex: 2,
+                            order: 3
+                        },
+                        'rangeProcSpell': {
+                            text: 'Range Proc',
+                            align: 'left',
+                            flex: 2,
+                            order: 4
+                        },
+                        'defensiveProcSpell': {
+                            text: 'Defensive Proc',
+                            align: 'left',
+                            flex: 2,
+                            order: 5
+                        },
                         'spells': {
                             text: 'Spells',
                             align: 'left',
                             flex: 5,
                             renderer: 'renderSpells',
-                            order: 3
+                            order: 6
                         }
                     };
 
-                    visibleCols = ['id', 'name', 'spells'];
+                    visibleCols = ['id', 'name', 'attackProcSpell', 'rangeProcSpell', 'defensiveProcSpell', 'spells'];
 
                     action = Util.grid.createActionColumn([{
                         text: "Edit",
