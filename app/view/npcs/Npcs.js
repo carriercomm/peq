@@ -4,7 +4,7 @@ Ext.define('peq.view.npcs.Npcs', {
 
     controller: 'npcs',
 
-    layout: 'anchor',
+    layout: 'hbox',
 
     listeners: {
         afterrender: 'onAfterRender'
@@ -43,6 +43,13 @@ Ext.define('peq.view.npcs.Npcs', {
         itemId: 'Npcs-PanelContainer',
         width: '100%',
         region: 'center',
-        items: []
+        layout: 'fit',
+        height: 5,
+        listeners: {
+            afterrender: 'onAfterRenderContentPanel'
+        },
+        items: [{
+            xtype: 'npcs-grid'
+        }]
     }]
 });
