@@ -108,6 +108,50 @@ Ext.define('peq.view.spells.SpellsGridController', {
         }
     },
 
+    renderZoneType: function (value) {
+        switch (value) {
+            case '-1':
+                return "None";
+                break;
+            case '0':
+                return "Indoor";
+                break;
+            case '1':
+                return "Outdoor";
+                break;
+            case '2':
+                return "Dungeon";
+                break;
+            case '255':
+                return "Any";
+                break;
+        }
+    },
+
+    renderCategory: function (value) {
+        return StaticData.spellgroups[value];
+    },
+
+    renderSkill: function (value) {
+        return StaticData.skilltypes[value];
+    },
+
+    renderTargetType: function (value) {
+        return StaticData.spelltargets[value];
+    },
+
+    renderResistType: function (value) {
+        return StaticData.spellresisttype[value];
+    },
+
+    renderBuffDurationFormula: function (value) {
+        return StaticData.spellbuffformulas[value];
+    },
+
+    renderNpcCategory: function (value) {
+        return StaticData.spellnpccategories[value];
+    },
+
     onSearchSpells: function (e) {
         var search = Ext.ComponentQuery.query("#spellsGrid-search")[0].inputEl.getValue();
         Ext.data.StoreManager.lookup('spellsStore').getProxy().setExtraParam('query', search);

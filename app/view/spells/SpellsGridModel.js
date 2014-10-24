@@ -97,6 +97,27 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                         },
                         'nodispell': {
                             renderer: 'renderBoolean'
+                        },
+                        'spell_category': {
+                            renderer: 'renderCategory'
+                        },
+                        'skill': {
+                            renderer: 'renderSkill'
+                        },
+                        'targettype': {
+                            renderer: 'renderTargetType'
+                        },
+                        'zonetype': {
+                            renderer: 'renderZoneType'
+                        },
+                        'resisttype': {
+                            renderer: 'renderResistType'
+                        },
+                        'buffdurationformula': {
+                            renderer: 'renderBuffDurationFormula'
+                        },
+                        'npc_category': {
+                            renderer: 'renderNpcCategory'
                         }
                     };
 
