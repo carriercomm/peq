@@ -38,6 +38,14 @@ Ext.define('peq.view.npcs.NpcsGridController', {
         return StaticData.bodytypes[value];
     },
 
+    renderSpecialAttacks: function (value) {
+        var attacks = value.split("");
+        Ext.Object.each(attacks, function (key, obj) {
+            attacks[key] = StaticData.specialattacks[obj];
+        });
+        return attacks.join(", ");
+    },
+
     onSearchNpcs: function (e) {
         var search = Ext.ComponentQuery.query("#npcsGrid-search")[0].inputEl.getValue();
         Ext.data.StoreManager.lookup('npcsStore').getProxy().setExtraParam('query', search);

@@ -1850,7 +1850,7 @@ Ext.define('peq.singleton.Static', {
         1: "Single Member",
         2: "Public if Usable",
         3: "Public"
-    },
+    },*/
 
     factionmods: {
         'r0':   'Doug',
@@ -2648,7 +2648,7 @@ Ext.define('peq.singleton.Static', {
         'c69':  'Fellowship Master',
         'c70':  'Alt Currency Merchant',
         'c71':  'Mercenary Liaison'
-    },*/
+    },
 
     spellbuffformulas: {
         '0':    "Not a Buff",
