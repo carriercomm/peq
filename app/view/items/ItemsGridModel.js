@@ -127,6 +127,12 @@ Ext.define('peq.view.items.ItemsGridModel', {
                         },
                         'expendablearrow': {
                             renderer: 'renderBoolean'
+                        },
+                        'augrestrict': {
+                            renderer: 'renderAugRestrict'
+                        },
+                        'material': {
+                            renderer: 'renderMaterial'
                         }
                     };
 
