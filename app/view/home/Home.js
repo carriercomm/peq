@@ -37,26 +37,32 @@ Ext.define('peq.view.home.Home', {
         }]
     }, {
         xtype: 'panel',
-        itemId: 'Home-PanelContainer',
+        id: 'Home-PanelContainer',
         width: '100%',
         region: 'center',
+        layout: 'fit',
+        height: 5,
+        listeners: {
+            afterrender: 'onAfterRenderContentPanel'
+        },
         items: [{
+            xtype: 'panel',
+            id: 'Home-ContentPanelContainer',
+            style: {
+                overflow: 'auto'
+            },
+            listeners: {
+                afterrender: 'onAfterRenderContent'
+            }
+        }]
+        /*items: [{
             xtype: 'panel',
             layout: {
                 type: 'vbox',
                 align: 'stretch'
             },
-            listeners: {
-            afterrender: function(e) {
-                    e.setHeight(Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - 5);
-                    e.setWidth(Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 150);
-                    Util.attachResizeHandler(e, function() {
-                        e.setHeight(Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - 5);
-                        e.setWidth(Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 150);
-                    });
-                }
-            },
-            /*dockedItems: [{
+            
+            dockedItems: [{
                 xtype: 'toolbar',
                 dock: 'top',
                 style: {
@@ -75,7 +81,7 @@ Ext.define('peq.view.home.Home', {
                         }));
                     }
                 }
-            }],*/
+            }],
             items: [{
                 xtype: 'container',
                 html: '<div style="margin: 5px; margin-left: 10px; margin-right: 10px; margin-top: 10px; border-radius: 12px; background-color: #151515; color: #BDBDBD; border: 1px solid #000; opacity: 0.6;"><div style="padding-left: 15px; padding-right: 15px;"><h1 style="text-align: center;">About Project Everquest</h1><p>Project EQ is a team of database and quest developers with a common goal of creating a database as close to the live Everquest experience as possible. We have very high standards about what goes into our database, and who works on it, to provide the highest quality database available. We use only packet collected NPCs and spawn points (with exception of important and rare quest NPCs), and combine all avaliable community information to fill in the gaps that packet collecting leaves behind.</p><p>We are working from Classic everuqest and working through each expansion in turn. Building and tuning each expansion before moving on.</p><p>Currently, the PEQ team is divided into two primary teams. The database team is a very selective team of people, hand-picked by existing database team members. The second team is the quest team. There are very few requirements to be on the quest team beyond the ability to write quests.</p><p>Project EQ also runs an a dedicated EQEmulator server: [PEQ] The Grand Creation. </p></div></div>'
@@ -89,6 +95,6 @@ Ext.define('peq.view.home.Home', {
                 xtype: 'container',
                 html: '<div style="margin: 5px; margin-left: 10px; margin-right: 10px; margin-top: 10px; border-radius: 12px; background-color: #151515; color: #BDBDBD; border: 1px solid #000; opacity: 0.6;"><div style="padding-left: 15px; padding-right: 15px;"><h1 style="text-align: center;">PEQ API Commit Activity</h1><p id="git_commit_api"></p></div></div>'
             }]
-        }]
+        }]*/
     }]
 });
