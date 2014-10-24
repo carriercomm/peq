@@ -143,12 +143,7 @@ Ext.define('peq.view.spells.SpellsGridModel', {
                             };
 
                             // if defaults object exists for this key in "columns" object, override values
-                            if (typeof columns[key] != "undefined") {
-                                defaultProperties = Util.grid.applyOverrides(defaultProperties, columns[key]);
-                                if (Ext.Array.contains(visibleCols, key)) {
-                                    defaultProperties.hidden = false;
-                                }
-                            }
+                            defaultProperties = Util.grid.applyOverrides(Ext.getCmp("spellsGrid-ID"), key, visibleCols, defaultProperties, columns[key]);
                             
                             // push column onto stack
                             newCols.push(defaultProperties);

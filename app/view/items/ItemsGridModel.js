@@ -164,7 +164,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                         text: "Edit",
                         handler: function (grid, rowIndex, colIndex) {
                             setTimeout(function() {
-                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                var row = Ext.getCmp("itemsGrid-ID").getSelectionModel().getSelection().shift().getData();
                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                             }, 200);
                         }
@@ -172,7 +172,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                         text: "Copy",
                         handler: function (grid, rowIndex, colIndex) {
                             setTimeout(function() {
-                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                var row = Ext.getCmp("itemsGrid-ID").getSelectionModel().getSelection().shift().getData();
                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                             }, 200);
                         }
@@ -180,7 +180,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                         text: "Delete",
                         handler: function (grid, rowIndex, colIndex) {
                             setTimeout(function() {
-                                var row = Ext.getCmp("zonesGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                var row = Ext.getCmp("itemsGrid-ID").getSelectionModel().getSelection().shift().getData();
                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                             }, 200);
                         }
@@ -201,12 +201,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                             };
 
                             // if defaults object exists for this key in "columns" object, override values
-                            if (typeof columns[key] != "undefined") {
-                                defaultProperties = Util.grid.applyOverrides(defaultProperties, columns[key]);
-                                if (Ext.Array.contains(visibleCols, key)) {
-                                    defaultProperties.hidden = false;
-                                }
-                            }
+                            defaultProperties = Util.grid.applyOverrides(Ext.getCmp("itemsGrid-ID"), key, visibleCols, defaultProperties, columns[key]);
                             
                             // push column onto stack
                             newCols.push(defaultProperties);

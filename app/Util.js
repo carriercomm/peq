@@ -108,11 +108,24 @@ Ext.define('peq.singleton.Util', {
     },
 
     grid: {
-        applyOverrides: function(obj1, obj2) {
-            Ext.Object.each(obj2, function (key, value) {
-                obj1[key] = value;
-                if (typeof obj1['width'] != "undefined") {
-                    obj1['flex'] = undefined;
+        applyOverrides: function(grid, column, visibleCols, obj1, obj2) {
+            var currentCols = grid.columnManager.columns;
+            if (typeof obj2 != "undefined") {
+                Ext.Object.each(obj2, function (key, value) {
+                    obj1[key] = value;
+                    if (typeof obj1['width'] != "undefined") {
+                        obj1['flex'] = undefined;
+                    }
+                });
+            }
+            if (Ext.Array.contains(visibleCols, column)) {
+                obj1['hidden'] = false;
+            }
+            Ext.Array.each(currentCols, function(obj) {
+                if (obj.config.dataIndex == column) {
+                    if (obj.hidden == false) {
+                        obj1['hidden'] = false;
+                    }
                 }
             });
             return obj1;

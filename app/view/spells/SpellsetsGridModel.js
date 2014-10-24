@@ -77,7 +77,7 @@ Ext.define('peq.view.spells.SpellsetsGridModel', {
                         text: "Edit",
                         handler: function (grid, rowIndex, colIndex) {
                             setTimeout(function() {
-                                var row = Ext.getCmp("spellsGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                var row = Ext.getCmp("spellsetsGrid-ID").getSelectionModel().getSelection().shift().getData();
                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                             }, 200);
                         }
@@ -85,7 +85,7 @@ Ext.define('peq.view.spells.SpellsetsGridModel', {
                         text: "Copy",
                         handler: function (grid, rowIndex, colIndex) {
                             setTimeout(function() {
-                                var row = Ext.getCmp("spellsGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                var row = Ext.getCmp("spellsetsGrid-ID").getSelectionModel().getSelection().shift().getData();
                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                             }, 200);
                         }
@@ -93,7 +93,7 @@ Ext.define('peq.view.spells.SpellsetsGridModel', {
                         text: "Delete",
                         handler: function (grid, rowIndex, colIndex) {
                             setTimeout(function() {
-                                var row = Ext.getCmp("spellsGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                var row = Ext.getCmp("spellsetsGrid-ID").getSelectionModel().getSelection().shift().getData();
                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                             }, 200);
                         }
@@ -114,12 +114,7 @@ Ext.define('peq.view.spells.SpellsetsGridModel', {
                             };
 
                             // if defaults object exists for this key in "columns" object, override values
-                            if (typeof columns[key] != "undefined") {
-                                defaultProperties = Util.grid.applyOverrides(defaultProperties, columns[key]);
-                                if (Ext.Array.contains(visibleCols, key)) {
-                                    defaultProperties.hidden = false;
-                                }
-                            }
+                            defaultProperties = Util.grid.applyOverrides(Ext.getCmp("spellsetsGrid-ID"), key, visibleCols, defaultProperties, columns[key]);
                             
                             // push column onto stack
                             newCols.push(defaultProperties);
