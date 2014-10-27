@@ -51,7 +51,7 @@ Ext.define('peq.controller.Root', {
                         if (Ext.state.Manager.get('authenticated')) {
                             thisController.showUI();
                         } else {
-                            this.initLogin(thisController);
+                            thisController.initLogin(thisController);
                         }
                     } else {
                         var tokens = Ext.state.Manager.get('tokens');
