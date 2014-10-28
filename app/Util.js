@@ -108,27 +108,111 @@ Ext.define('peq.singleton.Util', {
     },
 
     grid: {
-        applyOverrides: function(grid, column, visibleCols, obj1, obj2) {
-            var currentCols = grid.columnManager.columns;
-            if (typeof obj2 != "undefined") {
-                Ext.Object.each(obj2, function (key, value) {
-                    obj1[key] = value;
-                    if (typeof obj1['width'] != "undefined") {
-                        obj1['flex'] = undefined;
+        applyOverrides: function(grid, column, ignoreCols, defaultProperties, forceHidden, resetWidth) {
+            var currentCols, visibleCols, columnOverrides;
+            currentCols = grid.columnManager.columns;
+            visibleCols = AppConfig.gridSettings[grid.id].visibleCols;
+            columnOverrides = AppConfig.gridSettings[grid.id].columns[column];
+
+            // if overrides object exists, apply settings to defaultProperties
+            // if width is defined, set flex to undefined (storing previous value in flexTmp to swap back later)
+            if (typeof columnOverrides != "undefined") {
+                Ext.Object.each(columnOverrides, function (key, value) {
+                    defaultProperties[key] = value;
+                    if (typeof defaultProperties['width'] != "undefined") {
+                        if (typeof defaultProperties['flex'] != "undefined") {
+                            defaultProperties['flexTmp'] = defaultProperties['flex'];
+                            defaultProperties['flex'] = undefined;
+                        }
                     }
                 });
             }
+
+            // set visible if its in the visibleCols object
             if (Ext.Array.contains(visibleCols, column)) {
-                obj1['hidden'] = false;
+                defaultProperties['hidden'] = false;
             }
-            Ext.Array.each(currentCols, function(obj) {
+
+            Ext.Array.each(currentCols, function(obj, order) {
                 if (obj.config.dataIndex == column) {
-                    if (obj.hidden == false) {
-                        obj1['hidden'] = false;
+                    // if currently visible and not in the ignoreCols object make visible
+                    // else make hidden
+                    if (!Ext.Array.contains(ignoreCols, column)) {
+                        if (obj.hidden == false) {
+                            defaultProperties['hidden'] = false;
+                        } else {
+                            defaultProperties['hidden'] = true;
+                        }
+                    }
+                    
+                    // if in the forceHidden object, override hidden to value contained in object
+                    if (typeof forceHidden[column] != "undefined") {
+                        defaultProperties['hidden'] = forceHidden[column];
+                    }
+
+                    defaultProperties['order'] = order;
+                    
+                    if (!resetWidth) {
+                        if (typeof obj.cellWidth != "undefined") {
+                            if (typeof defaultProperties['flex'] != "undefined") {
+                                defaultProperties['flexTmp'] = defaultProperties['flex'];
+                                defaultProperties['flex'] = undefined;
+                            }
+                            // set flex to the column width to preserve widths
+                            defaultProperties['flex'] = obj.cellWidth;
+                        }
+                    } else {
+                        // we want to reset flex values from their original values
+                        if (typeof columnOverrides == "undefined" || typeof columnOverrides['width'] == "undefined") {
+                            defaultProperties['width'] = undefined;
+                            if (typeof defaultProperties['flexTmp'] != "undefined") {
+                                defaultProperties['flex'] = defaultProperties['flexTmp'];
+                            }
+                        }
                     }
                 }
             });
-            return obj1;
+
+            return defaultProperties;
+        },
+
+        // This is called when hiding and showing columns to re-apply flex so the columns autosize
+        resetColumns: function(grid, ignoreCols, forceHidden, resetWidth) {
+            var currentCols, defaults, newCols = [];
+
+            // user override timer so multiple resetColumn calls will be ignored
+            if (typeof AppConfig.gridSettings[grid.id].overrideTimer == "undefined") {
+                AppConfig.gridSettings[grid.id].overrideTimer = true;
+                setTimeout(function () {
+                    AppConfig.gridSettings[grid.id].overrideTimer = undefined;
+                }, 1000);
+
+                forceHidden = (typeof forceHidden != "undefined") ? forceHidden : {};
+                currentCols = grid.columnManager.columns;
+                lastConfig = AppConfig.gridSettings[grid.id].columns;
+                
+                Ext.Array.each(currentCols, function(obj, order) {
+                   var defaultProperties = {
+                        text: obj.config.text,
+                        dataIndex: (typeof obj.config.dataIndex != "undefined") ? obj.config.dataIndex : undefined,
+                        flex: 1,
+                        align: 'center',
+                        hidden: true
+                    };
+                    if (typeof defaultProperties.dataIndex != "undefined") {
+                        defaultProperties = Util.grid.applyOverrides(grid, defaultProperties.dataIndex, ignoreCols, defaultProperties, forceHidden, resetWidth);
+                        newCols.push(defaultProperties);
+                    }
+                });
+
+                newCols = Util.grid.reorderColumns(newCols);
+                newCols.push(AppConfig.gridSettings[grid.id].action);
+
+                Ext.getCmp(grid.id).headerCt.getMenu().hide();
+                setTimeout(function() {
+                    Ext.getCmp(grid.id).reconfigure(undefined, newCols);
+                }, 1);
+            }
         },
 
         reorderColumns: function(currentCols) {

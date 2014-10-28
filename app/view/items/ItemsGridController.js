@@ -10,6 +10,20 @@ Ext.define('peq.view.items.ItemsGridController', {
         Ext.data.StoreManager.lookup('itemsStore').load({params: {token: Ext.state.Manager.get('token'), page: 1}});
     },
 
+    onColumnShow: function(gridHeader, column, opts) {
+        var forceHidden = {}, dataIndex = column.config.dataIndex;
+        forceHidden[dataIndex] = false;
+        
+        Util.grid.resetColumns(Ext.getCmp("itemsGrid-ID"), ['bagtype', 'bagsize', 'bagslots', 'bagwr'], forceHidden, true);
+    },
+
+    onColumnHide: function(gridHeader, column, opts) {
+        var forceHidden = {}, dataIndex = column.config.dataIndex;
+        forceHidden[dataIndex] = true;
+        
+        Util.grid.resetColumns(Ext.getCmp("itemsGrid-ID"), ['bagtype', 'bagsize', 'bagslots', 'bagwr'], forceHidden, true);
+    },
+
     renderBold: function (value) {
         return "<strong>" + value + "</strong>";
     },

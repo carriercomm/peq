@@ -28,8 +28,11 @@ Ext.define('peq.view.spells.SpellsetsGridModel', {
                     store.getProxy().setExtraParam('token', Ext.state.Manager.get('token'));
                 },
                 load: function() {
-                    var columns, visibleCols, defaultCols, newCols, action, records;
+                    var columns, visibleCols, defaultCols, newCols, action, records, resetWidth, gridId, storeId;
                     
+                    gridId = "spellsetsGrid-ID";
+                    storeId = "spellsetsStore";
+                    resetWidth = false;
                     columns = {
                         'id': {
                             text: 'ID',
@@ -48,36 +51,40 @@ Ext.define('peq.view.spells.SpellsetsGridModel', {
                             text: 'Attack Proc',
                             align: 'left',
                             flex: 2,
-                            order: 3
+                            order: 3,
+                            sortable: false
                         },
                         'rangeProcSpell': {
                             text: 'Range Proc',
                             align: 'left',
                             flex: 2,
-                            order: 4
+                            order: 4,
+                            sortable: false
                         },
                         'defensiveProcSpell': {
                             text: 'Defensive Proc',
                             align: 'left',
                             flex: 2,
-                            order: 5
+                            order: 5,
+                            sortable: false
                         },
                         'spells': {
                             text: 'Spells',
                             align: 'left',
                             flex: 5,
                             renderer: 'renderSpells',
-                            order: 6
+                            order: 6,
+                            sortable: false
                         }
                     };
 
-                    visibleCols = ['id', 'name', 'attackProcSpell', 'rangeProcSpell', 'defensiveProcSpell', 'spells'];
+                    AppConfig.gridSettings[gridId].visibleCols = ['id', 'name', 'attackProcSpell', 'rangeProcSpell', 'defensiveProcSpell', 'spells'];
 
-                    action = Util.grid.createActionColumn([{
+                    AppConfig.gridSettings[gridId].action = Util.grid.createActionColumn([{
                         text: "Edit",
                         handler: function (grid, rowIndex, colIndex) {
                             setTimeout(function() {
-                                var row = Ext.getCmp("spellsetsGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                var row = Ext.getCmp(gridId).getSelectionModel().getSelection().shift().getData();
                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                             }, 200);
                         }
@@ -85,7 +92,7 @@ Ext.define('peq.view.spells.SpellsetsGridModel', {
                         text: "Copy",
                         handler: function (grid, rowIndex, colIndex) {
                             setTimeout(function() {
-                                var row = Ext.getCmp("spellsetsGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                var row = Ext.getCmp(gridId).getSelectionModel().getSelection().shift().getData();
                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                             }, 200);
                         }
@@ -93,17 +100,27 @@ Ext.define('peq.view.spells.SpellsetsGridModel', {
                         text: "Delete",
                         handler: function (grid, rowIndex, colIndex) {
                             setTimeout(function() {
-                                var row = Ext.getCmp("spellsetsGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                var row = Ext.getCmp(gridId).getSelectionModel().getSelection().shift().getData();
                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                             }, 200);
                         }
                     }]);
 
                     newCols = [];
+                    AppConfig.gridSettings[gridId].columns = columns;
 
                     // loop over the first data record to get full list of all columns from api
-                    if (typeof Ext.data.StoreManager.lookup('spellsetsStore').data.items[0] != "undefined") {
-                        records = Ext.data.StoreManager.lookup('spellsetsStore').data.items[0].data;
+                    if (typeof Ext.data.StoreManager.lookup(storeId).data.items[0] != "undefined") {
+                        if (typeof AppConfig.gridSettings[gridId].overrideTimer == "undefined") {
+                            AppConfig.gridSettings[gridId].overrideTimer = true;
+                            setTimeout(function () {
+                                AppConfig.gridSettings[gridId].overrideTimer = undefined;
+                            }, 1000);
+                        } else {
+                            resetWidth = true;
+                        }
+
+                        records = Ext.data.StoreManager.lookup(storeId).data.items[0].data;
                         Ext.Object.each(records, function (key, obj) {
                             var defaultProperties = {
                                 text: Util.ucwords(key.split('_').join(' ')),
@@ -114,7 +131,7 @@ Ext.define('peq.view.spells.SpellsetsGridModel', {
                             };
 
                             // if defaults object exists for this key in "columns" object, override values
-                            defaultProperties = Util.grid.applyOverrides(Ext.getCmp("spellsetsGrid-ID"), key, visibleCols, defaultProperties, columns[key]);
+                            defaultProperties = Util.grid.applyOverrides(Ext.getCmp(gridId), key, [], defaultProperties, {}, resetWidth);
                             
                             // push column onto stack
                             newCols.push(defaultProperties);
@@ -125,11 +142,11 @@ Ext.define('peq.view.spells.SpellsetsGridModel', {
                     newCols = Util.grid.reorderColumns(newCols);
 
                     // push action column onto stack last
-                    newCols.push(action);
+                    newCols.push(AppConfig.gridSettings[gridId].action);
 
                     AppConfig.loadedGems = [];
-                    Ext.getCmp("spellsetsGrid-ID").reconfigure(undefined, newCols);
-                    Ext.getCmp("spellsetsGrid-ID").unmask();
+                    Ext.getCmp(gridId).reconfigure(undefined, newCols);
+                    Ext.getCmp(gridId).unmask();
                 }
             }
         }

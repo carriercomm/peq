@@ -10,6 +10,20 @@ Ext.define('peq.view.zones.ZonesGridController', {
         Ext.data.StoreManager.lookup('zonesStore').load({params: {token: Ext.state.Manager.get('token'), page: 1}});
     },
 
+    onColumnShow: function(gridHeader, column, opts) {
+        var forceHidden = {}, dataIndex = column.config.dataIndex;
+        forceHidden[dataIndex] = false;
+        
+        Util.grid.resetColumns(Ext.getCmp("zonesGrid-ID"), null, forceHidden, true);
+    },
+
+    onColumnHide: function(gridHeader, column, opts) {
+        var forceHidden = {}, dataIndex = column.config.dataIndex;
+        forceHidden[dataIndex] = true;
+        
+        Util.grid.resetColumns(Ext.getCmp("zonesGrid-ID"), null, forceHidden, true);
+    },
+
     renderName: function (value, metaData, record) {
         //if (typeof StaticData.maps[record.data.short_name] != "undefined") {
             return '<a href="javascript:peq.app.getController(\'peq.view.zones.ZonesGridController\').showMap(\'' + record.data.short_name + '\');" style="color: #000;" data-qtip="View Map"><div class="fa fa-globe" style="cursor: zoom-in; margin-right: 5px;"></div></a><strong>' + value + '</strong>';

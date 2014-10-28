@@ -28,11 +28,14 @@ Ext.define('peq.view.items.ItemsGridModel', {
                     store.getProxy().setExtraParam('token', Ext.state.Manager.get('token'));
                 },
                 load: function() {
-                    var columns, visibleCols, defaultCols, newCols, action, records, container_found;
+                    var columns, visibleCols, defaultCols, newCols, action, records, container_found, resetWidth, gridId, storeId;
                     
+                    gridId = "itemsGrid-ID";
+                    storeId = "itemsStore";
+
                     // search for a container in the results, if found set flag
-                    container_found = false;
-                    records = Ext.data.StoreManager.lookup('itemsStore').data.items;
+                    container_found = resetWidth = false;
+                    records = Ext.data.StoreManager.lookup(storeId).data.items;
                     Ext.Object.each(records, function (key, obj) {
                         if (parseInt(obj.data.bagsize) > 0 && parseInt(obj.data.bagslots) > 0) {
                             container_found = true;
@@ -138,7 +141,12 @@ Ext.define('peq.view.items.ItemsGridModel', {
 
                     // if container found in results show bag related columns by default
                     if (container_found) {
-                        visibleCols = ['icon', 'id', 'Name', 'itemtype', 'bagtype', 'bagsize', 'bagslots', 'bagwr', 'magic', 'nodrop', 'norent', 'artifactFlag', 'ac', 'damage', 'delay', 'range'];
+                        AppConfig.gridSettings[gridId].bagMode = true;
+                        if (AppConfig.gridSettings[gridId].bagModeLast != AppConfig.gridSettings[gridId].bagMode) {
+                            AppConfig.gridSettings[gridId].bagModeLast = true;
+                            resetWidth = true;
+                        }
+                        AppConfig.gridSettings[gridId].visibleCols = ['icon', 'id', 'Name', 'itemtype', 'reqlevel', 'bagtype', 'bagsize', 'bagslots', 'bagwr', 'magic', 'nodrop', 'norent', 'artifactFlag', 'ac', 'damage', 'delay', 'range'];
 
                         columns['bagtype'] = {
                             text: 'Bag Type',
@@ -163,14 +171,19 @@ Ext.define('peq.view.items.ItemsGridModel', {
                             order: 8
                         };
                     } else {
-                        visibleCols = ['icon', 'id', 'Name', 'itemtype', 'magic', 'nodrop', 'norent', 'artifactFlag', 'ac', 'damage', 'delay', 'range'];
+                        AppConfig.gridSettings[gridId].bagMode = false;
+                        if (AppConfig.gridSettings[gridId].bagModeLast != AppConfig.gridSettings[gridId].bagMode) {
+                            AppConfig.gridSettings[gridId].bagModeLast = false;
+                            resetWidth = true;
+                        }
+                        AppConfig.gridSettings[gridId].visibleCols = ['icon', 'id', 'Name', 'itemtype', 'reqlevel', 'magic', 'nodrop', 'norent', 'artifactFlag', 'ac', 'damage', 'delay', 'range'];
                     }
 
-                    action = Util.grid.createActionColumn([{
+                    AppConfig.gridSettings[gridId].action = Util.grid.createActionColumn([{
                         text: "Edit",
                         handler: function (grid, rowIndex, colIndex) {
                             setTimeout(function() {
-                                var row = Ext.getCmp("itemsGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                var row = Ext.getCmp(gridId).getSelectionModel().getSelection().shift().getData();
                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                             }, 200);
                         }
@@ -178,7 +191,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                         text: "Copy",
                         handler: function (grid, rowIndex, colIndex) {
                             setTimeout(function() {
-                                var row = Ext.getCmp("itemsGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                var row = Ext.getCmp(gridId).getSelectionModel().getSelection().shift().getData();
                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                             }, 200);
                         }
@@ -186,17 +199,27 @@ Ext.define('peq.view.items.ItemsGridModel', {
                         text: "Delete",
                         handler: function (grid, rowIndex, colIndex) {
                             setTimeout(function() {
-                                var row = Ext.getCmp("itemsGrid-ID").getSelectionModel().getSelection().shift().getData();
+                                var row = Ext.getCmp(gridId).getSelectionModel().getSelection().shift().getData();
                                 Ext.MessageBox.alert("Not implemented", "This is not yet implemented, sorry!");
                             }, 200);
                         }
                     }]);
 
                     newCols = [];
+                    AppConfig.gridSettings[gridId].columns = columns;
 
                     // loop over the first data record to get full list of all columns from api
-                    if (typeof Ext.data.StoreManager.lookup('itemsStore').data.items[0] != "undefined") {
-                        records = Ext.data.StoreManager.lookup('itemsStore').data.items[0].data;
+                    if (typeof Ext.data.StoreManager.lookup(storeId).data.items[0] != "undefined") {
+                        if (typeof AppConfig.gridSettings[gridId].overrideTimer == "undefined") {
+                            AppConfig.gridSettings[gridId].overrideTimer = true;
+                            setTimeout(function () {
+                                AppConfig.gridSettings[gridId].overrideTimer = undefined;
+                            }, 1000);        
+                        } else {
+                            resetWidth = true;
+                        }
+                        
+                        records = Ext.data.StoreManager.lookup(storeId).data.items[0].data;
                         Ext.Object.each(records, function (key, obj) {
                             var defaultProperties = {
                                 text: Util.ucwords(key.split('_').join(' ')),
@@ -207,7 +230,7 @@ Ext.define('peq.view.items.ItemsGridModel', {
                             };
 
                             // if defaults object exists for this key in "columns" object, override values
-                            defaultProperties = Util.grid.applyOverrides(Ext.getCmp("itemsGrid-ID"), key, visibleCols, defaultProperties, columns[key]);
+                            defaultProperties = Util.grid.applyOverrides(Ext.getCmp(gridId), key, ['bagtype', 'bagsize', 'bagslots', 'bagwr'], defaultProperties, {}, resetWidth);
                             
                             // push column onto stack
                             newCols.push(defaultProperties);
@@ -218,10 +241,10 @@ Ext.define('peq.view.items.ItemsGridModel', {
                     newCols = Util.grid.reorderColumns(newCols);
 
                     // push action column onto stack last
-                    newCols.push(action);
+                    newCols.push(AppConfig.gridSettings[gridId].action);
 
-                    Ext.getCmp("itemsGrid-ID").reconfigure(undefined, newCols);
-                    Ext.getCmp("itemsGrid-ID").unmask();
+                    Ext.getCmp(gridId).reconfigure(undefined, newCols);
+                    Ext.getCmp(gridId).unmask();
                 }
             }
         }

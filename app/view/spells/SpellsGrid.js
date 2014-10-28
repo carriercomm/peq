@@ -13,7 +13,9 @@ Ext.define('peq.view.spells.SpellsGrid', {
         autoFit: true
     },
     listeners: {
-        afterrender: 'onAfterRender'
+        afterrender: 'onAfterRender',
+        columnshow: 'onColumnShow',
+        columnhide: 'onColumnHide'
     },
     bind: {
         store: '{spells}'

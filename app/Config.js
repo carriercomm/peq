@@ -18,6 +18,26 @@ Ext.define('peq.singleton.Config', {
 	// gems are placed here just before their ajax check is fired off so we don't request gems multiple times
 	loadedGems: [],
 
+	gridSettings: {
+		'itemsGrid-ID': {
+			'bagMode': undefined,
+			'bagModeLast': undefined
+		},
+		'zonesGrid-ID': {
+			'smallMode': undefined,
+			'smallModeLast': undefined
+		},
+		'spellsGrid-ID': {
+
+		},
+		'spellsetsGrid-ID': {
+
+		},
+		'npcsGrid-ID': {
+			
+		}
+	},
+
 	getApiEndpoint: function () {
 		return (this.environment == "production") ? this.api_prod : this.api_dev;
 	},

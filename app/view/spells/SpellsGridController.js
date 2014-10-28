@@ -10,6 +10,20 @@ Ext.define('peq.view.spells.SpellsGridController', {
         Ext.data.StoreManager.lookup('spellsStore').load({params: {token: Ext.state.Manager.get('token'), page: 1}});
     },
 
+    onColumnShow: function(gridHeader, column, opts) {
+        var forceHidden = {}, dataIndex = column.config.dataIndex;
+        forceHidden[dataIndex] = false;
+        
+        Util.grid.resetColumns(Ext.getCmp("spellsGrid-ID"), null, forceHidden, true);
+    },
+
+    onColumnHide: function(gridHeader, column, opts) {
+        var forceHidden = {}, dataIndex = column.config.dataIndex;
+        forceHidden[dataIndex] = true;
+        
+        Util.grid.resetColumns(Ext.getCmp("spellsGrid-ID"), null, forceHidden, true);
+    },
+
     renderBold: function (value) {
         return "<strong>" + value + "</strong>";
     },
