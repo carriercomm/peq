@@ -71,6 +71,15 @@ Ext.define('peq.view.zones.ZonesGrid', {
                         }
                     }
                 }));
+                items.add(Ext.create('Ext.toolbar.TextItem', {
+                    text: ' or '
+                }));
+                items.add(Ext.create('Ext.button.Button', {
+                    text: 'Add Filter',
+                    handler: function() {
+                        peq.app.getController('peq.view.zones.ZonesGridController').onAddFilter();
+                    }
+                }));
                 items.add(Ext.create('Ext.toolbar.Fill'));
             }
         }

@@ -171,5 +171,21 @@ Ext.define('peq.view.spells.SpellsGridController', {
         Ext.data.StoreManager.lookup('spellsStore').getProxy().setExtraParam('query', search);
         Ext.getCmp("spellsGrid-ID").lookupReference('pagingtoolbartop').moveFirst();
         Ext.data.StoreManager.lookup('spellsStore').load({params: {page: 1}});
+    },
+
+    onApplyFilterClick: function (e) {
+        Util.grid.filter.applyFilterClick(Ext.data.StoreManager.lookup("spellsStore"), peq.app.getController('peq.view.spells.SpellsGridController'), "spellsGrid-ID");
+    },
+
+    onRemoveFilterClick: function (e) {
+        Util.grid.filter.removeFilterClick(e, Ext.data.StoreManager.lookup("spellsStore"), peq.app.getController('peq.view.spells.SpellsGridController'), "spellsGrid-ID");
+    },
+
+    onAddFilter: function (e) {
+        Util.grid.filter.showAddFilterDock(Ext.data.StoreManager.lookup("spellsStore"), peq.app.getController('peq.view.spells.SpellsGridController'), "spellsGrid-ID");
+    },
+    
+    showFilterBar: function() {
+        Util.grid.filter.showFilterBar(peq.app.getController('peq.view.spells.SpellsGridController'), "spellsGrid-ID");
     }
 });

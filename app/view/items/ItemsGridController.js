@@ -99,5 +99,21 @@ Ext.define('peq.view.items.ItemsGridController', {
         Ext.data.StoreManager.lookup('itemsStore').getProxy().setExtraParam('query', search);
         Ext.getCmp("itemsGrid-ID").lookupReference('pagingtoolbartop').moveFirst();
         Ext.data.StoreManager.lookup('itemsStore').load({params: {page: 1}});
+    },
+
+    onApplyFilterClick: function (e) {
+        Util.grid.filter.applyFilterClick(Ext.data.StoreManager.lookup("itemsStore"), peq.app.getController('peq.view.items.ItemsGridController'), "itemsGrid-ID");
+    },
+
+    onRemoveFilterClick: function (e) {
+        Util.grid.filter.removeFilterClick(e, Ext.data.StoreManager.lookup("itemsStore"), peq.app.getController('peq.view.items.ItemsGridController'), "itemsGrid-ID");
+    },
+
+    onAddFilter: function (e) {
+        Util.grid.filter.showAddFilterDock(Ext.data.StoreManager.lookup("itemsStore"), peq.app.getController('peq.view.items.ItemsGridController'), "itemsGrid-ID");
+    },
+    
+    showFilterBar: function() {
+        Util.grid.filter.showFilterBar(peq.app.getController('peq.view.items.ItemsGridController'), "itemsGrid-ID");
     }
 });

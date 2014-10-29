@@ -71,6 +71,15 @@ Ext.define('peq.view.npcs.NpcsGrid', {
                         }
                     }
                 }));
+                items.add(Ext.create('Ext.toolbar.TextItem', {
+                    text: ' or '
+                }));
+                items.add(Ext.create('Ext.button.Button', {
+                    text: 'Add Filter',
+                    handler: function() {
+                        peq.app.getController('peq.view.npcs.NpcsGridController').onAddFilter();
+                    }
+                }));
                 items.add(Ext.create('Ext.toolbar.Fill'));
             }
         }

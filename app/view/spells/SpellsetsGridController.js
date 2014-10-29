@@ -53,5 +53,21 @@ Ext.define('peq.view.spells.SpellsetsGridController', {
         Ext.data.StoreManager.lookup('spellsetsStore').getProxy().setExtraParam('query', search);
         Ext.getCmp("spellsetsGrid-ID").lookupReference('pagingtoolbartop').moveFirst();
         Ext.data.StoreManager.lookup('spellsetsStore').load({params: {page: 1}});
+    },
+
+    onApplyFilterClick: function (e) {
+        Util.grid.filter.applyFilterClick(Ext.data.StoreManager.lookup("spellsetsStore"), peq.app.getController('peq.view.spells.SpellsetsGridController'), "spellsetsGrid-ID");
+    },
+
+    onRemoveFilterClick: function (e) {
+        Util.grid.filter.removeFilterClick(e, Ext.data.StoreManager.lookup("spellsetsStore"), peq.app.getController('peq.view.spells.SpellsetsGridController'), "spellsetsGrid-ID");
+    },
+
+    onAddFilter: function (e) {
+        Util.grid.filter.showAddFilterDock(Ext.data.StoreManager.lookup("spellsetsStore"), peq.app.getController('peq.view.spells.SpellsetsGridController'), "spellsetsGrid-ID");
+    },
+    
+    showFilterBar: function() {
+        Util.grid.filter.showFilterBar(peq.app.getController('peq.view.spells.SpellsetsGridController'), "spellsetsGrid-ID");
     }
 });

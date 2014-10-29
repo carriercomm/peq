@@ -65,5 +65,21 @@ Ext.define('peq.view.npcs.NpcsGridController', {
         Ext.data.StoreManager.lookup('npcsStore').getProxy().setExtraParam('query', search);
         Ext.getCmp("npcsGrid-ID").lookupReference('pagingtoolbartop').moveFirst();
         Ext.data.StoreManager.lookup('npcsStore').load({params: {page: 1}});
+    },
+
+    onApplyFilterClick: function (e) {
+        Util.grid.filter.applyFilterClick(Ext.data.StoreManager.lookup("npcsStore"), peq.app.getController('peq.view.npcs.NpcsGridController'), "npcsGrid-ID");
+    },
+
+    onRemoveFilterClick: function (e) {
+        Util.grid.filter.removeFilterClick(e, Ext.data.StoreManager.lookup("npcsStore"), peq.app.getController('peq.view.npcs.NpcsGridController'), "npcsGrid-ID");
+    },
+
+    onAddFilter: function (e) {
+        Util.grid.filter.showAddFilterDock(Ext.data.StoreManager.lookup("npcsStore"), peq.app.getController('peq.view.npcs.NpcsGridController'), "npcsGrid-ID");
+    },
+    
+    showFilterBar: function() {
+        Util.grid.filter.showFilterBar(peq.app.getController('peq.view.npcs.NpcsGridController'), "npcsGrid-ID");
     }
 });

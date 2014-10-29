@@ -71,6 +71,15 @@ Ext.define('peq.view.spells.SpellsetsGrid', {
                         }
                     }
                 }));
+                items.add(Ext.create('Ext.toolbar.TextItem', {
+                    text: ' or '
+                }));
+                items.add(Ext.create('Ext.button.Button', {
+                    text: 'Add Filter',
+                    handler: function() {
+                        peq.app.getController('peq.view.spells.SpellsetsGridController').onAddFilter();
+                    }
+                }));
                 items.add(Ext.create('Ext.toolbar.Fill'));
             }
         }

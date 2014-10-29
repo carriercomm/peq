@@ -71,6 +71,15 @@ Ext.define('peq.view.items.ItemsGrid', {
                         }
                     }
                 }));
+                items.add(Ext.create('Ext.toolbar.TextItem', {
+                    text: ' or '
+                }));
+                items.add(Ext.create('Ext.button.Button', {
+                    text: 'Add Filter',
+                    handler: function() {
+                        peq.app.getController('peq.view.items.ItemsGridController').onAddFilter();
+                    }
+                }));
                 items.add(Ext.create('Ext.toolbar.Fill'));
             }
         }

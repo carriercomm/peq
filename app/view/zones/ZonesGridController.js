@@ -96,5 +96,21 @@ Ext.define('peq.view.zones.ZonesGridController', {
             }
         });
         return viewer;
+    },
+
+    onApplyFilterClick: function (e) {
+        Util.grid.filter.applyFilterClick(Ext.data.StoreManager.lookup("zonesStore"), peq.app.getController('peq.view.zones.ZonesGridController'), "zonesGrid-ID");
+    },
+
+    onRemoveFilterClick: function (e) {
+        Util.grid.filter.removeFilterClick(e, Ext.data.StoreManager.lookup("zonesStore"), peq.app.getController('peq.view.zones.ZonesGridController'), "zonesGrid-ID");
+    },
+
+    onAddFilter: function (e) {
+        Util.grid.filter.showAddFilterDock(Ext.data.StoreManager.lookup("zonesStore"), peq.app.getController('peq.view.zones.ZonesGridController'), "zonesGrid-ID");
+    },
+    
+    showFilterBar: function() {
+        Util.grid.filter.showFilterBar(peq.app.getController('peq.view.zones.ZonesGridController'), "zonesGrid-ID");
     }
 });
