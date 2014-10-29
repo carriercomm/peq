@@ -191,6 +191,9 @@ Ext.define('peq.singleton.GridUtil', {
                     id: 'addFilterField_' + gridId,
                     displayField: 'label',
                     valueField: 'field',
+                    typeAhead: true,
+                    forceSelection: true,
+                    queryMode: 'local',
                     listeners: {
                         afterrender: function(e) {
                             var data = [];
@@ -213,6 +216,9 @@ Ext.define('peq.singleton.GridUtil', {
                     width: 80,
                     displayField: 'label',
                     valueField: 'field',
+                    editable: false,
+                    forceSelection: true,
+                    queryMode: 'local',
                     listeners: {
                         afterrender: function(e) {
                             e.setStore(Ext.create('Ext.data.Store', {
