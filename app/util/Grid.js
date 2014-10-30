@@ -196,10 +196,22 @@ Ext.define('peq.singleton.GridUtil', {
                     queryMode: 'local',
                     listeners: {
                         afterrender: function(e) {
-                            var data = [];
+                            var data = [], records, defaultOverrides;
                             records = store.data.items[0].data;
+                            defaultOverrides = AppConfig.gridSettings[gridId].columns;
                             Ext.Object.each(records, function (key, obj) {
-                                data.push({'label': Util.ucwords(key.split('_').join(' ')), 'field': key});
+                                if (typeof defaultOverrides[key] != "undefined" && typeof defaultOverrides[key].text != "undefined") {
+                                    data.push({'label': defaultOverrides[key].text, 'field': key});
+                                } else {
+                                    data.push({'label': Util.ucwords(key.split('_').join(' ')), 'field': key});
+                                }
+                            });
+                            data.sort(function(a, b) {
+                                if (a.label < b.label)
+                                    return -1;
+                                if (a.label > b.label)
+                                    return 1;
+                                return 0;
                             });
                             e.setStore(Ext.create('Ext.data.Store', {
                                 fields: [
@@ -282,7 +294,9 @@ Ext.define('peq.singleton.GridUtil', {
 
         // Show / create the filter bar dock that displays currently active filters
         showFilterBar: function(controller, gridId) {
-            var items = [];
+            var items = [], defaultOverrides;
+
+            defaultOverrides = AppConfig.gridSettings[gridId].columns;
             if (typeof Ext.getCmp("filterBarDock_" + gridId) != "undefined") {
                 if (AppConfig.gridSettings[gridId].filters.length < 1) {
                     Ext.getCmp("filterBarDock_" + gridId).hide();
@@ -291,15 +305,35 @@ Ext.define('peq.singleton.GridUtil', {
 
                     items.push({xtype: 'tbfill'});
                     Ext.Object.each(AppConfig.gridSettings[gridId].filters, function(key, obj) {
-                        items.push({
-                            xtype: 'button',
-                            glyph: 0xf057,
-                            text: obj.field + ' ' + Util.grid.filter.translateOperator(obj.operator) + ' ' + obj.value,
-                            dataKey: key,
-                            handler: function(e) {
-                                controller.onRemoveFilterClick(e);
-                            }
-                        });
+                        if (typeof defaultOverrides[obj.field] != "undefined" && typeof defaultOverrides[obj.field].text != "undefined") {
+                            items.push({
+                                xtype: 'button',
+                                glyph: 0xf057,
+                                text: defaultOverrides[obj.field].text + ' ' + Util.grid.filter.translateOperator(obj.operator) + ' ' + obj.value,
+                                dataKey: key,
+                                style: {
+                                    border: '1px solid #999',
+                                    borderRadius: '15px'
+                                },
+                                handler: function(e) {
+                                    controller.onRemoveFilterClick(e);
+                                }
+                            });
+                        } else {
+                            items.push({
+                                xtype: 'button',
+                                glyph: 0xf057,
+                                text: obj.field + ' ' + Util.grid.filter.translateOperator(obj.operator) + ' ' + obj.value,
+                                dataKey: key,
+                                style: {
+                                    border: '1px solid #999',
+                                    borderRadius: '15px'
+                                },
+                                handler: function(e) {
+                                    controller.onRemoveFilterClick(e);
+                                }
+                            });
+                        }
                     });
                     items.push({xtype: 'tbfill'});
 
@@ -309,15 +343,35 @@ Ext.define('peq.singleton.GridUtil', {
             } else {
                 items.push({xtype: 'tbfill'});
                 Ext.Object.each(AppConfig.gridSettings[gridId].filters, function(key, obj) {
-                    items.push({
-                        xtype: 'button',
-                        glyph: 0xf057,
-                        text: obj.field + ' ' + Util.grid.filter.translateOperator(obj.operator) + ' ' + obj.value,
-                        dataKey: key,
-                        handler: function(e) {
-                            controller.onRemoveFilterClick(e);
-                        }
-                    });
+                    if (typeof defaultOverrides[obj.field] != "undefined" && typeof defaultOverrides[obj.field].text != "undefined") {
+                        items.push({
+                            xtype: 'button',
+                            glyph: 0xf057,
+                            text: defaultOverrides[obj.field].text + ' ' + Util.grid.filter.translateOperator(obj.operator) + ' ' + obj.value,
+                            dataKey: key,
+                            style: {
+                                border: '1px solid #999',
+                                borderRadius: '15px'
+                            },
+                            handler: function(e) {
+                                controller.onRemoveFilterClick(e);
+                            }
+                        });
+                    } else {
+                        items.push({
+                            xtype: 'button',
+                            glyph: 0xf057,
+                            text: obj.field + ' ' + Util.grid.filter.translateOperator(obj.operator) + ' ' + obj.value,
+                            dataKey: key,
+                            style: {
+                                border: '1px solid #999',
+                                borderRadius: '15px'
+                            },
+                            handler: function(e) {
+                                controller.onRemoveFilterClick(e);
+                            }
+                        });
+                    }
                 });
                 items.push({xtype: 'tbfill'});
                 Ext.getCmp(gridId).addDocked([
@@ -329,6 +383,7 @@ Ext.define('peq.singleton.GridUtil', {
                             margin: '5px',
                             borderRadius: '7px',
                             opacity: '0.9',
+                            marginBottom: '0px'
                         },
                         items: items
                     })
