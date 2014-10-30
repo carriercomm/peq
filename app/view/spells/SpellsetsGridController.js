@@ -69,5 +69,10 @@ Ext.define('peq.view.spells.SpellsetsGridController', {
     
     showFilterBar: function() {
         Util.grid.filter.showFilterBar(peq.app.getController('peq.view.spells.SpellsetsGridController'), "spellsetsGrid-ID");
+    },
+
+    // Put any "fake" derived columns here so they are not displayed in the field picker (they would break if you tried to use them)
+    getIgnoreCols: function() {
+        return ['attackProcSpell', 'rangeProcSpell', 'defensiveProcSpell', 'spells'];
     }
 });

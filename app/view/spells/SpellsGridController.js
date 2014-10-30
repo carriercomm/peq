@@ -187,5 +187,101 @@ Ext.define('peq.view.spells.SpellsGridController', {
     
     showFilterBar: function() {
         Util.grid.filter.showFilterBar(peq.app.getController('peq.view.spells.SpellsGridController'), "spellsGrid-ID");
+    },
+
+    // This is executed anytime the value of the filter field combo changes (on add filter form)
+    // Used primarily to then change the store of the value filter to accomodate special case selections (itemtype, etc)
+    // In short, it allows you to make changing the field combo directly change the options available in the value combo
+    // This method will be heavily different between the different modules
+    onFilterFieldChange: function(e, newValue, oldValue, opts) {
+        var defaultOverrides, data = [], gridId = "spellsGrid-ID";
+        defaultOverrides = AppConfig.gridSettings[gridId].columns;
+        
+        Ext.getCmp('addFilterValue_' + gridId).forceSelection = false;
+        if (typeof defaultOverrides[newValue] != "undefined") {
+            if (typeof defaultOverrides[newValue].renderer != "undefined") {
+                switch(defaultOverrides[newValue].renderer) {
+                    case 'renderBoolean':
+                        data = [
+                            {label: 'Yes', field: '1'}, 
+                            {label: 'No', field: '0'}
+                        ];
+                        Ext.getCmp('addFilterValue_' + gridId).forceSelection = true;
+                        break;
+                    case 'renderType':
+                        data = [
+                            {label: 'Detrimental', field: '0'},
+                            {label: 'Beneficial', field: '1'},
+                            {label: 'Beneficial [Group Only]', field: '2'}
+                        ];
+                        break;
+                    case 'renderZoneType':
+                        data = [
+                            {label: 'None', field: '-1'},
+                            {label: 'Indoor', field: '0'},
+                            {label: 'Outdoor', field: '1'},
+                            {label: 'Dungeon', field: '2'},
+                            {label: 'Any', field: '255'}
+                        ];
+                        break;
+                    case 'renderEnvironmentType':
+                        data = [
+                            {label: 'Everywhere', field: '0'},
+                            {label: 'Cities', field: '12'},
+                            {label: 'Planes', field: '24'}
+                        ];
+                        break;
+                    case 'renderTimeOfDay':
+                        data = [
+                            {label: 'Anytime', field: '0'},
+                            {label: 'Day', field: '1'},
+                            {label: 'Night', field: '2'}
+                        ];
+                        break;
+                    case 'renderCategory':
+                        Ext.Object.each(StaticData.spellgroups, function(key, value) {
+                            data.push({label: value, field: key});
+                        });
+                        break;
+                    case 'renderSkill':
+                        Ext.Object.each(StaticData.skilltypes, function(key, value) {
+                            data.push({label: value, field: key});
+                        });
+                        break;
+                    case 'renderTargetType':
+                        Ext.Object.each(StaticData.spelltargets, function(key, value) {
+                            data.push({label: value, field: key});
+                        });
+                        break;
+                    case 'renderResistType':
+                        Ext.Object.each(StaticData.spellresisttype, function(key, value) {
+                            data.push({label: value, field: key});
+                        });
+                        break;
+                    case 'renderBuffDurationFormula':
+                        Ext.Object.each(StaticData.spellbuffformulas, function(key, value) {
+                            data.push({label: value, field: key});
+                        });
+                        break;
+                    case 'renderNpcCategory':
+                        Ext.Object.each(StaticData.spellnpccategories, function(key, value) {
+                            data.push({label: value, field: key});
+                        });
+                        break;
+                }
+            }
+        }
+        if (data.length < 1) {
+            Ext.getCmp('addFilterValue_' + gridId).triggerEl.hide();
+        } else {
+            Ext.getCmp('addFilterValue_' + gridId).triggerEl.show();
+        }
+        Ext.getCmp('addFilterValue_' + gridId).setStore(Ext.create('Ext.data.Store', {
+            fields: [
+                {type: 'string', name: 'label'}, 
+                {type: 'string', name: 'field'}
+            ],
+            data: data
+        }));
     }
 });

@@ -196,14 +196,19 @@ Ext.define('peq.singleton.GridUtil', {
                     queryMode: 'local',
                     listeners: {
                         afterrender: function(e) {
-                            var data = [], records, defaultOverrides;
+                            var data = [], records, defaultOverrides, ignoreCols = [];
                             records = store.data.items[0].data;
                             defaultOverrides = AppConfig.gridSettings[gridId].columns;
+                            if (typeof controller.getIgnoreCols != "undefined") {
+                                ignoreCols = controller.getIgnoreCols();
+                            }
                             Ext.Object.each(records, function (key, obj) {
-                                if (typeof defaultOverrides[key] != "undefined" && typeof defaultOverrides[key].text != "undefined") {
-                                    data.push({'label': defaultOverrides[key].text, 'field': key});
-                                } else {
-                                    data.push({'label': Util.ucwords(key.split('_').join(' ')), 'field': key});
+                                if (!Ext.Array.contains(ignoreCols, key)) {
+                                    if (typeof defaultOverrides[key] != "undefined" && typeof defaultOverrides[key].text != "undefined") {
+                                        data.push({'label': defaultOverrides[key].text, 'field': key});
+                                    } else {
+                                        data.push({'label': Util.ucwords(key.split('_').join(' ')), 'field': key});
+                                    }
                                 }
                             });
                             data.sort(function(a, b) {
@@ -220,6 +225,11 @@ Ext.define('peq.singleton.GridUtil', {
                                 ],
                                 data: data
                             }))
+                        },
+                        change: function (e, newValue, oldValue, opts) {
+                            if (typeof controller.onFilterFieldChange != "undefined") {
+                                controller.onFilterFieldChange(e, newValue, oldValue, opts);
+                            }
                         }
                     }
                 }, {
@@ -252,9 +262,14 @@ Ext.define('peq.singleton.GridUtil', {
                         }
                     }
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'combobox',
                     id: 'addFilterValue_' + gridId,
-                    value: ''
+                    value: '',
+                    displayField: 'label',
+                    valueField: 'field',
+                    typeAhead: true,
+                    hideTrigger: true,
+                    queryMode: 'local'
                 }, {
                     xtype: 'button',
                     text: 'Apply Filter',

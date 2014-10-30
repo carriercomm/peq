@@ -48,21 +48,21 @@ Ext.define('peq.view.spells.SpellsetsGridModel', {
                             order: 2
                         },
                         'attackProcSpell': {
-                            text: 'Attack Proc',
+                            text: 'Attack Proc Spell',
                             align: 'left',
                             flex: 2,
                             order: 3,
                             sortable: false
                         },
                         'rangeProcSpell': {
-                            text: 'Range Proc',
+                            text: 'Range Proc Spell',
                             align: 'left',
                             flex: 2,
                             order: 4,
                             sortable: false
                         },
                         'defensiveProcSpell': {
-                            text: 'Defensive Proc',
+                            text: 'Defensive Proc Spell',
                             align: 'left',
                             flex: 2,
                             order: 5,

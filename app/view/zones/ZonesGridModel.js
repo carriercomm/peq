@@ -61,7 +61,7 @@ Ext.define('peq.view.zones.ZonesGridModel', {
                             order: 4
                         },
                         'ztype': {
-                            text: 'Type',
+                            text: 'Zone Type',
                             renderer: 'renderZType',
                             order: 5
                         },
