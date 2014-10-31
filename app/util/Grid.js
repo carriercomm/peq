@@ -179,11 +179,12 @@ Ext.define('peq.singleton.GridUtil', {
                 id: 'addFilterDock_' + gridId,
                 dock: 'top', 
                 style: {
-                    backgroundColor: '#ccc',
-                    margin: '5px',
-                    borderRadius: '7px',
-                    opacity: '0.9',
+                    backgroundColor: '#333',
+                    //margin: '5px',
+                    //borderRadius: '7px',
+                    opacity: '0.9'
                 },
+                height: 45,
                 items: [{
                     xtype: 'tbfill'
                 }, {
@@ -234,6 +235,17 @@ Ext.define('peq.singleton.GridUtil', {
                                 var defaultOverrides, data = [];
                                 defaultOverrides = AppConfig.gridSettings[gridId].columns;
                                 
+                                data = [
+                                    {label: '>', field: 'gt'},
+                                    {label: '>=', field: 'gte'},
+                                    {label: '<', field: 'lt'},
+                                    {label: '<=', field: 'lte'},
+                                    {label: '=', field: 'eq'},
+                                    {label: '!=', field: 'neq'},
+                                    {label: 'LIKE', field: 'lk'},
+                                    {label: 'NOT LIKE', field: 'nlk'}
+                                ];
+
                                 if (typeof defaultOverrides[newValue] != "undefined") {
                                     if (typeof defaultOverrides[newValue].renderer != "undefined") {
                                         switch(defaultOverrides[newValue].renderer) {
@@ -241,18 +253,6 @@ Ext.define('peq.singleton.GridUtil', {
                                                 data = [
                                                     {label: '=', field: 'eq'}, 
                                                     {label: '!=', field: 'neq'}
-                                                ];
-                                                break;
-                                            default:
-                                                data = [
-                                                    {label: '>', field: 'gt'},
-                                                    {label: '>=', field: 'gte'},
-                                                    {label: '<', field: 'lt'},
-                                                    {label: '<=', field: 'lte'},
-                                                    {label: '=', field: 'eq'},
-                                                    {label: '!=', field: 'neq'},
-                                                    {label: 'LIKE', field: 'lk'},
-                                                    {label: 'NOT LIKE', field: 'nlk'}
                                                 ];
                                                 break;
                                         }
@@ -430,11 +430,11 @@ Ext.define('peq.singleton.GridUtil', {
                         id: 'filterBarDock_' + gridId,
                         dock: 'top', 
                         style: {
-                            backgroundColor: '#ccc',
-                            margin: '5px',
-                            borderRadius: '7px',
-                            opacity: '0.9',
-                            marginBottom: '0px'
+                            backgroundColor: '#FFF',
+                            //margin: '5px',
+                            //borderRadius: '7px',
+                            opacity: '0.9'
+                            //marginBottom: '0px'
                         },
                         items: items
                     })
