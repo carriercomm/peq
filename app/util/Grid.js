@@ -229,6 +229,42 @@ Ext.define('peq.singleton.GridUtil', {
                         change: function (e, newValue, oldValue, opts) {
                             if (typeof controller.onFilterFieldChange != "undefined") {
                                 controller.onFilterFieldChange(e, newValue, oldValue, opts);
+
+                                // Auto Filter Operators combo for Common Types
+                                var defaultOverrides, data = [];
+                                defaultOverrides = AppConfig.gridSettings[gridId].columns;
+                                
+                                if (typeof defaultOverrides[newValue] != "undefined") {
+                                    if (typeof defaultOverrides[newValue].renderer != "undefined") {
+                                        switch(defaultOverrides[newValue].renderer) {
+                                            case 'renderBoolean':
+                                                data = [
+                                                    {label: '=', field: 'eq'}, 
+                                                    {label: '!=', field: 'neq'}
+                                                ];
+                                                break;
+                                            default:
+                                                data = [
+                                                    {label: '>', field: 'gt'},
+                                                    {label: '>=', field: 'gte'},
+                                                    {label: '<', field: 'lt'},
+                                                    {label: '<=', field: 'lte'},
+                                                    {label: '=', field: 'eq'},
+                                                    {label: '!=', field: 'neq'},
+                                                    {label: 'LIKE', field: 'lk'},
+                                                    {label: 'NOT LIKE', field: 'nlk'}
+                                                ];
+                                                break;
+                                        }
+                                    }
+                                }
+                                Ext.getCmp('addFilterOperator_' + gridId).setStore(Ext.create('Ext.data.Store', {
+                                    fields: [
+                                        {type: 'string', name: 'label'}, 
+                                        {type: 'string', name: 'field'}
+                                    ],
+                                    data: data
+                                }));
                             }
                         }
                     }
