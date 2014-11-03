@@ -13,6 +13,11 @@ Ext.define('peq.view.spells.SpellsController', {
             e.setHeight(Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - 42);
             e.setWidth(Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 150);
         });
+
+        var panelContainer = Ext.ComponentQuery.query("#Spells-PanelContainer")[0];
+        if (typeof Ext.getCmp('spellsGrid-ID') == "undefined") {
+            panelContainer.add(Ext.create('peq.view.spells.SpellsGrid'));
+        }
     },
 
     onSwitchSpells: function(e) {

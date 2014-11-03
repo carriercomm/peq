@@ -48,8 +48,6 @@ Ext.define('peq.view.npcs.Npcs', {
         listeners: {
             afterrender: 'onAfterRenderContentPanel'
         },
-        items: [{
-            xtype: 'npcs-grid'
-        }]
+        items: []
     }]
 });

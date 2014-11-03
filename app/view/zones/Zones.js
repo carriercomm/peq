@@ -43,8 +43,6 @@ Ext.define('peq.view.zones.Zones', {
         listeners: {
             afterrender: 'onAfterRenderContentPanel'
         },
-        items: [{
-            xtype: 'zones-grid'
-        }]
+        items: []
     }]
 });

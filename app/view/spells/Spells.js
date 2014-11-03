@@ -60,8 +60,6 @@ Ext.define('peq.view.spells.Spells', {
         listeners: {
             afterrender: 'onAfterRenderContentPanel'
         },
-        items: [{
-            xtype: 'spells-grid'
-        }]
+        items: []
     }]
 });
