@@ -1,10 +1,10 @@
-Ext.define('peq.view.npcs.NpcsGridModel', {
+Ext.define('peq.view.merchants.MerchantsGridModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.npcsgrid',
+    alias: 'viewmodel.merchantsgrid',
 
     stores: {
-        npcs: {
-            storeId: 'npcsStore',
+        merchants: {
+            storeId: 'merchantsStore',
             autoLoad: false,
             remoteSort: true,
             pageSize: 50,
@@ -23,15 +23,15 @@ Ext.define('peq.view.npcs.NpcsGridModel', {
             sorters: "name",
             listeners: {
                 beforeload: function(store, operation, opts) {
-                    Ext.getCmp("npcsGrid-ID").mask("Loading Data...");
-                    store.getProxy().setUrl(AppConfig.getApiEndpoint() + "/npc/search");
+                    Ext.getCmp("merchantsGrid-ID").mask("Loading Data...");
+                    store.getProxy().setUrl(AppConfig.getApiEndpoint() + "/npc/searchmerchants");
                     store.getProxy().setExtraParam('token', Ext.state.Manager.get('token'));
                 },
                 load: function() {
                     var columns, visibleCols, defaultCols, newCols, action, records, resetWidth, gridId, storeId;
                     
-                    gridId = "npcsGrid-ID";
-                    storeId = "npcsStore";
+                    gridId = "merchantsGrid-ID";
+                    storeId = "merchantsStore";
                     resetWidth = false;
                     columns = {
                         'id': {
@@ -47,24 +47,30 @@ Ext.define('peq.view.npcs.NpcsGridModel', {
                             renderer: 'renderBold',
                             order: 2
                         },
+                        'lastname': {
+                            text: 'Surname',
+                            align: 'left',
+                            flex: 2,
+                            order: 3,
+                        },
                         'level': {
                             text: 'Level',
-                            order: 3
+                            order: 4
                         },
                         'race': {
                             text: 'Race',
                             renderer: 'renderRace',
-                            order: 4
+                            order: 5
                         },
                         'class': {
                             text: 'Class',
                             renderer: 'renderClass',
-                            order: 5
+                            order: 6
                         },
                         'bodytype': {
                             text: 'Body Type',
                             renderer: 'renderBodytype',
-                            order: 6
+                            order: 7
                         },
                         'zones': {
                             text: 'Zones Found',
@@ -102,9 +108,6 @@ Ext.define('peq.view.npcs.NpcsGridModel', {
                         'raid_target': {
                             renderer: 'renderBoolean'
                         },
-                        'npcspecialattks': {
-                            renderer: 'renderSpecialAttacks'
-                        },
                         'faction_hits': {
                             unsortable: true
                         },
@@ -113,7 +116,7 @@ Ext.define('peq.view.npcs.NpcsGridModel', {
                         }
                     };
 
-                    AppConfig.gridSettings[gridId].visibleCols = ['id', 'name', 'level', 'race', 'class', 'bodytype', 'zones'];
+                    AppConfig.gridSettings[gridId].visibleCols = ['id', 'name', 'lastname', 'level', 'race', 'class', 'bodytype', 'zones'];
 
                     AppConfig.gridSettings[gridId].action = Util.grid.createActionColumn([{
                         text: "Edit",

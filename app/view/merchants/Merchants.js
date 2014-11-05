@@ -4,7 +4,7 @@ Ext.define('peq.view.merchants.Merchants', {
 
     controller: 'merchants',
 
-    layout: 'anchor',
+    layout: 'hbox',
 
     listeners: {
         afterrender: 'onAfterRender'
@@ -38,6 +38,11 @@ Ext.define('peq.view.merchants.Merchants', {
         itemId: 'Merchants-PanelContainer',
         width: '100%',
         region: 'center',
+        layout: 'fit',
+        height: 5,
+        listeners: {
+            afterrender: 'onAfterRenderContentPanel'
+        },
         items: []
     }]
 });

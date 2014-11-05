@@ -35,6 +35,9 @@ Ext.define('peq.singleton.Config', {
 		},
 		'npcsGrid-ID': {
 			
+		},
+		'merchantsGrid-ID': {
+			
 		}
 	},
 

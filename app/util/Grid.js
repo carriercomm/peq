@@ -35,11 +35,13 @@ Ext.define('peq.singleton.GridUtil', {
             if (obj.config.dataIndex == column) {
                 // if currently visible and not in the ignoreCols object make visible
                 // else make hidden
-                if (!Ext.Array.contains(ignoreCols, column)) {
-                    if (obj.hidden == false) {
-                        defaultProperties['hidden'] = false;
-                    } else {
-                        defaultProperties['hidden'] = true;
+                if (typeof ignoreCols != "undefined" && ignoreCols != null) {
+                    if (!Ext.Array.contains(ignoreCols, column)) {
+                        if (obj.hidden == false) {
+                            defaultProperties['hidden'] = false;
+                        } else {
+                            defaultProperties['hidden'] = true;
+                        }
                     }
                 }
                 
