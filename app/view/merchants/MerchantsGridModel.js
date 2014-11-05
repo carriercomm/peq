@@ -77,6 +77,11 @@ Ext.define('peq.view.merchants.MerchantsGridModel', {
                             order: 7,
                             renderer: 'renderZones'
                         },
+                        'items': {
+                            text: 'Merchant Stock',
+                            order: 8,
+                            renderer: 'renderItems'
+                        },
                         'see_invis': {
                             renderer: 'renderBoolean'
                         },
@@ -109,14 +114,14 @@ Ext.define('peq.view.merchants.MerchantsGridModel', {
                             renderer: 'renderBoolean'
                         },
                         'faction_hits': {
-                            unsortable: true
+                            sortable: false
                         },
                         'npc_faction_id': {
                             text: 'Npc Faction'
                         }
                     };
 
-                    AppConfig.gridSettings[gridId].visibleCols = ['id', 'name', 'lastname', 'level', 'race', 'class', 'bodytype', 'zones'];
+                    AppConfig.gridSettings[gridId].visibleCols = ['id', 'name', 'lastname', 'level', 'race', 'class', 'bodytype', 'items', 'zones'];
 
                     AppConfig.gridSettings[gridId].action = Util.grid.createActionColumn([{
                         text: "Edit",

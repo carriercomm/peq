@@ -106,7 +106,7 @@ Ext.define('peq.view.npcs.NpcsGridModel', {
                             renderer: 'renderSpecialAttacks'
                         },
                         'faction_hits': {
-                            unsortable: true
+                            sortable: false
                         },
                         'npc_faction_id': {
                             text: 'Npc Faction'

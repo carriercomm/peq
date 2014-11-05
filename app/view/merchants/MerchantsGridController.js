@@ -69,6 +69,23 @@ Ext.define('peq.view.merchants.MerchantsGridController', {
         }
     },
 
+    renderItems: function (value, metaData, record) {
+        var numItems = record.data.numItems;
+        if (value == null) {
+            return "None";
+        } else {
+            result = numItems + " Item" + ((numItems > 1) ? "s" : "");
+            if (value.indexOf(',') > -1) {
+                value = value.split(',').join(", ");
+                result = '<div style="cursor: pointer" data-qtip="' + value + '">' + result + '</div>';
+            } else {
+                return value;
+            }
+            
+            return result;
+        }
+    },
+
     onSearchMerchants: function (e) {
         var search = Ext.ComponentQuery.query("#merchantsGrid-search")[0].inputEl.getValue();
         Ext.data.StoreManager.lookup('merchantsStore').getProxy().setExtraParam('query', search);
