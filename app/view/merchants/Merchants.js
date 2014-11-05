@@ -28,7 +28,7 @@ Ext.define('peq.view.merchants.Merchants', {
             items: [{
                 text: 'Browse Merchants',
                 style: {
-                    height: '30px'
+                    height: '36px'
                 },
                 pressed: true
             }]

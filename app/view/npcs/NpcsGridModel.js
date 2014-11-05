@@ -71,6 +71,11 @@ Ext.define('peq.view.npcs.NpcsGridModel', {
                             order: 7,
                             renderer: 'renderZones'
                         },
+                        'faction_hits': {
+                            order: 8,
+                            flex: 2,
+                            renderer: 'renderFactionHits'
+                        },
                         'see_invis': {
                             renderer: 'renderBoolean'
                         },
@@ -105,15 +110,12 @@ Ext.define('peq.view.npcs.NpcsGridModel', {
                         'npcspecialattks': {
                             renderer: 'renderSpecialAttacks'
                         },
-                        'faction_hits': {
-                            renderer: 'renderFactionHits'
-                        },
                         'npc_faction_id': {
                             text: 'Npc Faction'
                         }
                     };
 
-                    AppConfig.gridSettings[gridId].visibleCols = ['id', 'name', 'level', 'race', 'class', 'bodytype', 'zones'];
+                    AppConfig.gridSettings[gridId].visibleCols = ['id', 'name', 'level', 'race', 'class', 'bodytype', 'zones', 'faction_hits'];
 
                     AppConfig.gridSettings[gridId].action = Util.grid.createActionColumn([{
                         text: "Edit",
