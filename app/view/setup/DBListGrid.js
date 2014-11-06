@@ -45,7 +45,15 @@ Ext.define('peq.view.setup.DBListGrid', {
                                     if (selection == 'yes') {
                                         Ext.Array.remove(tokens, row.token);
                                         Ext.state.Manager.set('tokens', tokens);
-                                        Ext.data.StoreManager.lookup('dbListStore').load({params: {tokens: Ext.state.Manager.get('tokens').join(",")}});
+                                        if (tokens.length < 1) {
+                                            Ext.state.Manager.set('token', null);
+                                            Ext.state.Manager.set('tokens', null);
+                                            Ext.state.Manager.set('authenticated', null);
+                                            Ext.state.Manager.set('admin', null);
+                                            window.location.href = AppConfig.getAppUrl();
+                                        } else {
+                                            Ext.data.StoreManager.lookup('dbListStore').load({params: {tokens: Ext.state.Manager.get('tokens').join(",")}});
+                                        }
                                     }
                                 });
                             }, 200);

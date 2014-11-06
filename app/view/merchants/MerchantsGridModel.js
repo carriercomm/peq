@@ -51,7 +51,7 @@ Ext.define('peq.view.merchants.MerchantsGridModel', {
                             text: 'Surname',
                             align: 'left',
                             flex: 2,
-                            order: 3,
+                            order: 3
                         },
                         'level': {
                             text: 'Level',

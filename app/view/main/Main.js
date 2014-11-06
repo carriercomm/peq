@@ -28,6 +28,8 @@ Ext.define('peq.view.main.Main', {
         afterrender: "onAfterRender"
     },
 
+    id: 'MainPanel',
+
     items: [{
         xtype: 'panel',
         region: 'center',

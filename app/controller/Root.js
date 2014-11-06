@@ -166,9 +166,11 @@ Ext.define('peq.controller.Root', {
     },
     
     showUI: function() {
-        this.viewport = new peq.view.main.Main({
-            session: this.session
-        });
+        if (typeof Ext.getCmp("MainPanel") == "undefined") {
+            this.viewport = new peq.view.main.Main({
+                session: this.session
+            });
+        }
     },
     
     getSession: function() {
