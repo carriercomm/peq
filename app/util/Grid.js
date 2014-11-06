@@ -43,6 +43,12 @@ Ext.define('peq.singleton.GridUtil', {
                             defaultProperties['hidden'] = true;
                         }
                     }
+                } else {
+                    if (obj.hidden == false) {
+                        defaultProperties['hidden'] = false;
+                    } else {
+                        defaultProperties['hidden'] = true;
+                    }
                 }
                 
                 // if in the forceHidden object, override hidden to value contained in object
@@ -72,7 +78,7 @@ Ext.define('peq.singleton.GridUtil', {
                 }
             }
         });
-
+        
         return defaultProperties;
     },
 
